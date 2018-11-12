@@ -260,6 +260,42 @@ The following methods are available on the ``web3.eth`` namespace.
         print(w3.eth.getRNodes())
 
 
+.. py:method:: Eth.getCurrentEpoch()
+
+    * Delegates to ``eth_getCurrentEpoch`` RPC Method
+
+    Returns CurrentEpoch.
+
+    .. code-block:: python
+
+        >>> web3.eth.getCurrentEpoch()
+        10
+
+
+.. py:method:: Eth.getCurrentRound()
+
+    * Delegates to ``eth_getCurrentRound`` RPC Method
+
+    Returns CurrentRound.
+
+    .. code-block:: python
+
+        >>> web3.eth.getCurrentRound()
+        7
+
+
+.. py:method:: Eth.getCommittees()
+
+    * Delegates to ``eth_getCommittees`` RPC Method
+
+    Returns Committee Slice.
+
+    .. code-block:: python
+
+        >>> web3.eth.getCommittees()
+        [{'Epoch': 1, 'Round': 1, 'Producer': '0x0000000000000000000000000000000000000001', 'PublicKey': '012345', 'Block': 1111}, {'Epoch': 1, 'Round': 2, 'Producer': '0x0000000000000000000000000000000000000002', 'PublicKey': '012345', 'Block': 1112}, {'Epoch': 1, 'Round': 3, 'Producer': '0x0000000000000000000000000000000000000003', 'PublicKey': '012345', 'Block': 1113}, {'Epoch': 1, 'Round': 4, 'Producer': '0x0000000000000000000000000000000000000004', 'PublicKey': '012345', 'Block': 1114}, {'Epoch': 1, 'Round': 5, 'Producer': '0x0000000000000000000000000000000000000005', 'PublicKey': '012345', 'Block': 1115}, {'Epoch': 1, 'Round': 6, 'Producer': '0x0000000000000000000000000000000000000006', 'PublicKey': '012345', 'Block': 1116}, {'Epoch': 1, 'Round': 7, 'Producer': '0x0000000000000000000000000000000000000007', 'PublicKey': '012345', 'Block': 1117}]
+
+
 
 .. py:method:: Eth.getBlockTransactionCount(block_identifier)
 
