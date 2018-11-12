@@ -236,6 +236,12 @@ class Eth(Module):
                 )
             )
 
+    def getRNodes(self):
+        return self.web3.manager.request_blocking(
+            "eth_getRNodes",
+            [],
+        )
+
     def getTransactionReceipt(self, transaction_hash):
         return self.web3.manager.request_blocking(
             "eth_getTransactionReceipt",

@@ -235,6 +235,32 @@ The following methods are available on the ``web3.eth`` namespace.
         })
 
 
+.. py:method:: Eth.getRNodes()
+
+    * Delegates to ``eth_getRNodes`` RPC Method
+
+    Returns the array of address that become ``rnode`` as
+    of the candidate of committee.
+
+    .. code-block:: python
+
+        >>> web3.eth.getRNodes()
+        ['0x0000000000000000000000000000000000000001', '0x0000000000000000000000000000000000000002']
+
+        #!/usr/bin/env python
+        # -*- coding: utf-8 -*-
+        from fusion.web3 import Web3
+        from fusion.web3.middleware import geth_poa_middleware
+
+        w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
+        # inject the poa compatibility middleware to the innermost layer
+        w3.middleware_stack.inject(geth_poa_middleware, layer=0)
+
+        print("rnode:")
+        print(w3.eth.getRNodes())
+
+
+
 .. py:method:: Eth.getBlockTransactionCount(block_identifier)
 
     * Delegates to ``eth_getBlockTransactionCountByNumber`` or
