@@ -2,6 +2,7 @@ import pkg_resources
 import sys
 import warnings
 
+
 if (3, 5) <= sys.version_info < (3, 6):
     warnings.warn(
         "Support for Python 3.5 will be removed in web3.py v5",
