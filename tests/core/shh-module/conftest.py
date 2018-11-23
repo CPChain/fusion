@@ -1,6 +1,6 @@
 import pytest
 
-from web3.shh import (
+from cpc_fusion.shh import (
     Shh,
 )
 

@@ -6,10 +6,10 @@ from eth_utils import (
     to_bytes,
 )
 
-from web3._utils.empty import (
+from cpc_fusion._utils.empty import (
     empty,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     ValidationError,
 )
 

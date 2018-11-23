@@ -1,14 +1,14 @@
 import pytest
 
-from web3 import Web3
-from web3.exceptions import (
+from cpc_fusion import Web3
+from cpc_fusion.exceptions import (
     InvalidAddress,
 )
-from web3.middleware import (  # noqa: F401
+from cpc_fusion.middleware import (  # noqa: F401
     construct_fixture_middleware,
     name_to_address_middleware,
 )
-from web3.providers.base import (
+from cpc_fusion.providers.base import (
     BaseProvider,
 )
 

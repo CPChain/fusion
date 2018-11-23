@@ -1,6 +1,6 @@
 import pytest
 
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     ValidationError,
 )
 

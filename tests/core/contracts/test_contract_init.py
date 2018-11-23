@@ -1,10 +1,10 @@
 import pytest
 
-from web3._utils.ens import (
+from cpc_fusion._utils.ens import (
     contract_ens_addresses,
     ens_addresses,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     BadFunctionCallOutput,
     NameNotFound,
 )

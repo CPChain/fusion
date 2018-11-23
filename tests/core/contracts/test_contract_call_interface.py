@@ -13,13 +13,13 @@ from hexbytes import (
     HexBytes,
 )
 
-from web3._utils.ens import (
+from cpc_fusion._utils.ens import (
     contract_ens_addresses,
 )
-from web3._utils.toolz import (
+from cpc_fusion._utils.toolz import (
     identity,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     BadFunctionCallOutput,
     BlockNumberOutofRange,
     InvalidAddress,

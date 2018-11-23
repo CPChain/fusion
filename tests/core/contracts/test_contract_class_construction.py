@@ -5,10 +5,10 @@ from eth_utils import (
     decode_hex,
 )
 
-from web3.contract import (
+from cpc_fusion.contract import (
     Contract,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     FallbackNotFound,
 )
 

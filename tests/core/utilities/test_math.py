@@ -5,10 +5,10 @@ from hypothesis import (
     strategies as st,
 )
 
-from web3._utils.math import (
+from cpc_fusion._utils.math import (
     percentile,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     InsufficientData,
 )
 

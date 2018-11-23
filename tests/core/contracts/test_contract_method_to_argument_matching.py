@@ -1,13 +1,13 @@
 import json
 import pytest
 
-from web3._utils.abi import (
+from cpc_fusion._utils.abi import (
     get_abi_input_types,
 )
-from web3._utils.function_identifiers import (
+from cpc_fusion._utils.function_identifiers import (
     FallbackFn,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     ValidationError,
 )
 

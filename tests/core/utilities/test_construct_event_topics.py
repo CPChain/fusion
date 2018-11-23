@@ -1,6 +1,6 @@
 import pytest
 
-from web3._utils.events import (
+from cpc_fusion._utils.events import (
     construct_event_topic_set,
 )
 

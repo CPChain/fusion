@@ -7,7 +7,7 @@ from flaky import (
     flaky,
 )
 
-from web3._utils.threads import (
+from cpc_fusion._utils.threads import (
     Timeout,
 )
 

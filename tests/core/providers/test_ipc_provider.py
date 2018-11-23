@@ -9,13 +9,13 @@ from threading import (
 import time
 import uuid
 
-from web3.auto.gethdev import (
+from cpc_fusion.auto.gethdev import (
     w3,
 )
-from web3.middleware import (
+from cpc_fusion.middleware import (
     construct_fixture_middleware,
 )
-from web3.providers.ipc import (
+from cpc_fusion.providers.ipc import (
     IPCProvider,
 )
 

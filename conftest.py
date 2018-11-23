@@ -2,13 +2,13 @@ import pytest
 import time
 import warnings
 
-from web3._utils.threads import (
+from cpc_fusion._utils.threads import (
     Timeout,
 )
-from web3.main import (
+from cpc_fusion.main import (
     Web3,
 )
-from web3.providers.eth_tester import (
+from cpc_fusion.providers.eth_tester import (
     EthereumTesterProvider,
 )
 

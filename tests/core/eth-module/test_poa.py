@@ -1,9 +1,9 @@
 import pytest
 
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     ValidationError,
 )
-from web3.middleware import (
+from cpc_fusion.middleware import (
     construct_fixture_middleware,
     geth_poa_middleware,
 )

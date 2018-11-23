@@ -4,7 +4,7 @@ from eth_utils import (
     is_integer,
 )
 
-from web3.contract import (
+from cpc_fusion.contract import (
     ImplicitContract,
 )
 

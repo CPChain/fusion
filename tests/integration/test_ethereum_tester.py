@@ -9,18 +9,18 @@ from eth_utils import (
     is_dict,
 )
 
-from web3 import Web3
-from web3._utils.module_testing import (
+from cpc_fusion import Web3
+from cpc_fusion._utils.module_testing import (
     EthModuleTest,
     NetModuleTest,
     PersonalModuleTest,
     VersionModuleTest,
     Web3ModuleTest,
 )
-from web3._utils.module_testing.emitter_contract import (
+from cpc_fusion._utils.module_testing.emitter_contract import (
     EMITTER_ENUM,
 )
-from web3.providers.eth_tester import (
+from cpc_fusion.providers.eth_tester import (
     EthereumTesterProvider,
 )
 

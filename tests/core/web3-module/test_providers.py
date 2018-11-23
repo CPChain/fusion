@@ -1,8 +1,8 @@
-from web3 import Web3
-from web3.providers.auto import (
+from cpc_fusion import Web3
+from cpc_fusion.providers.auto import (
     AutoProvider,
 )
-from web3.providers.eth_tester import (
+from cpc_fusion.providers.eth_tester import (
     EthereumTesterProvider,
 )
 

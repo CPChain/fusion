@@ -11,7 +11,7 @@ VALID_MANIFEST = {
 @pytest.fixture
 def web3():
     try:
-        from web3.pm import PM
+        from cpc_fusion.pm import PM
     except ModuleNotFoundError as exc:
         assert False, "eth-pm import failed because: %s" % exc
     PM.attach(web3, 'pm')

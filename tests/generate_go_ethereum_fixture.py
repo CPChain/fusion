@@ -25,17 +25,17 @@ from eth_utils.curried import (
 from tests.utils import (
     get_open_port,
 )
-from web3 import Web3
-from web3._utils.module_testing.emitter_contract import (
+from cpc_fusion import Web3
+from cpc_fusion._utils.module_testing.emitter_contract import (
     EMITTER_ABI,
     EMITTER_BYTECODE,
     EMITTER_ENUM,
 )
-from web3._utils.module_testing.math_contract import (
+from cpc_fusion._utils.module_testing.math_contract import (
     MATH_ABI,
     MATH_BYTECODE,
 )
-from web3._utils.toolz import (
+from cpc_fusion._utils.toolz import (
     merge,
     valmap,
 )

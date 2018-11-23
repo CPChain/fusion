@@ -16,7 +16,7 @@ from hypothesis import (
     strategies as st,
 )
 
-from web3._utils.encoding import (
+from cpc_fusion._utils.encoding import (
     FriendlyJsonSerde as FriendlyJson,
     hex_encode_abi_type,
     hexstr_if_str,
@@ -24,10 +24,10 @@ from web3._utils.encoding import (
     to_hex,
     to_int,
 )
-from web3._utils.hypothesis import (
+from cpc_fusion._utils.hypothesis import (
     hexstr_strategy,
 )
-from web3.providers import (
+from cpc_fusion.providers import (
     JSONBaseProvider,
 )
 

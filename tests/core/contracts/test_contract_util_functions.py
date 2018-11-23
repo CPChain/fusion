@@ -1,4 +1,4 @@
-from web3.contract import (
+from cpc_fusion.contract import (
     parse_block_identifier_int,
 )
 
