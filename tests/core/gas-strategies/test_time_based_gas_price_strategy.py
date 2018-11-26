@@ -1,16 +1,16 @@
 import pytest
 
-from web3 import Web3
-from web3.exceptions import (
+from cpc_fusion import Web3
+from cpc_fusion.exceptions import (
     ValidationError,
 )
-from web3.gas_strategies.time_based import (
+from cpc_fusion.gas_strategies.time_based import (
     construct_time_based_gas_price_strategy,
 )
-from web3.middleware import (
+from cpc_fusion.middleware import (
     construct_result_generator_middleware,
 )
-from web3.providers.base import (
+from cpc_fusion.providers.base import (
     BaseProvider,
 )
 

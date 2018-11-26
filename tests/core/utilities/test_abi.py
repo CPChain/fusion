@@ -1,11 +1,11 @@
 
 import pytest
 
-from web3._utils.abi import (
+from cpc_fusion._utils.abi import (
     abi_data_tree,
     map_abi_data,
 )
-from web3._utils.normalizers import (
+from cpc_fusion._utils.normalizers import (
     BASE_RETURN_NORMALIZERS,
 )
 

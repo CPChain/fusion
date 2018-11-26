@@ -5,13 +5,13 @@ from unittest.mock import (
     patch,
 )
 
-from web3.datastructures import (
+from cpc_fusion.datastructures import (
     AttributeDict,
 )
-from web3.middleware import (
+from cpc_fusion.middleware import (
     make_stalecheck_middleware,
 )
-from web3.middleware.stalecheck import (
+from cpc_fusion.middleware.stalecheck import (
     StaleBlockchain,
     _isfresh,
 )

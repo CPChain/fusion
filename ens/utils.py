@@ -28,7 +28,7 @@ default = object()
 
 
 def Web3():
-    from web3 import Web3
+    from cpc_fusion import Web3
     return Web3
 
 
@@ -48,7 +48,7 @@ def ensure_hex(data):
 
 
 def init_web3(providers=default):
-    from web3 import Web3
+    from cpc_fusion import Web3
 
     if providers is default:
         w3 = Web3(ens=None)
@@ -59,8 +59,8 @@ def init_web3(providers=default):
 
 
 def customize_web3(w3):
-    from web3.contract import ConciseContract
-    from web3.middleware import make_stalecheck_middleware
+    from cpc_fusion.contract import ConciseContract
+    from cpc_fusion.middleware import make_stalecheck_middleware
 
     w3.middleware_stack.remove('name_to_address')
     w3.middleware_stack.add(

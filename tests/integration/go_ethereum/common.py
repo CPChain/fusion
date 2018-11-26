@@ -1,6 +1,6 @@
 import pytest
 
-from web3._utils.module_testing import (
+from cpc_fusion._utils.module_testing import (
     EthModuleTest,
     NetModuleTest,
     PersonalModuleTest,

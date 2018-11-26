@@ -1,6 +1,6 @@
 import pytest
 
-from web3._utils.transactions import (
+from cpc_fusion._utils.transactions import (
     prepare_replacement_transaction,
 )
 

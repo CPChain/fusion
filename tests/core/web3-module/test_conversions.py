@@ -2,7 +2,7 @@
 
 import pytest
 
-from web3 import Web3
+from cpc_fusion import Web3
 
 
 @pytest.mark.parametrize(

@@ -1,6 +1,6 @@
 import pytest
 
-from web3._utils.datatypes import (
+from cpc_fusion._utils.datatypes import (
     PropertyCheckingFactory,
 )
 

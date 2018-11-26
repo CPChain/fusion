@@ -83,7 +83,19 @@ is provided by :meth:`w3.eth.sign() <web3.eth.Eth.sign>`.
 
 .. doctest::
 
-    >>> from web3.auto import w3
+    >>> from cpc_fusion.auto import w3
+        >>> from eth_account.messages import defunct_hash_message
+
+        >>> msg = "I♥SF"
+        >>> private_key = b"\xb2\\}\xb3\x1f\xee\xd9\x12''\xbf\t9\xdcv\x9a\x96VK-\xe4\xc4rm\x03[6\xec\xf1\xe5\xb3d"
+        >>> message_hash = defunct_hash_message(text=msg)
+        >>> signed_message = w3.eth.account.signHash(message_hash, private_key=private_key)
+        >>> signed_message
+        AttrDict({'messageHash': HexBytes('0x1476abb745d423bf09273f1afd887d951181d25adc66c4834a70491911b7f750'),
+         'r': 104389933075820307925104709181714897380569894203213074526835978196648170704563,
+         's': 28205917190874851400050446352651915501321657673772411533993420917949420456142,
+         'v': 28,
+         'signature': HexBytes('0xe6ca9bba58c88611fad66a6ce8f996908195593807c4b38bd528d2cff09d4eb33e5bfbbf4d3e39b1a2fd816a7680c19ebebaf3a141b239934ad43cb33fcec8ce1c')})
     >>> from eth_account.messages import defunct_hash_message
 
     >>> msg = "I♥SF"
@@ -133,7 +145,28 @@ You might have produced the signed_message locally, as in
 
 .. doctest::
 
-    >>> from web3 import Web3
+    >>> from cpc_fusion import Web3
+
+        # ecrecover in Solidity expects v as a native uint8, but r and s as left-padded bytes32
+        # Remix / web3.js expect r and s to be encoded to hex
+        # This convenience method will do the pad & hex for us:
+        >>> def to_32byte_hex(val):
+        ...   return Web3.toHex(Web3.toBytes(val).rjust(32, b'\0'))
+
+        >>> ec_recover_args = (msghash, v, r, s) = (
+        ...   Web3.toHex(signed_message.messageHash),
+        ...   signed_message.v,
+        ...   to_32byte_hex(signed_message.r),
+        ...   to_32byte_hex(signed_message.s),
+        ... )
+        >>> ec_recover_args
+        ('0x1476abb745d423bf09273f1afd887d951181d25adc66c4834a70491911b7f750',
+         28,
+         '0xe6ca9bba58c88611fad66a6ce8f996908195593807c4b38bd528d2cff09d4eb3',
+         '0x3e5bfbbf4d3e39b1a2fd816a7680c19ebebaf3a141b239934ad43cb33fcec8ce')
+
+    Instead, you might have received a message and a signature encoded to hex. Then
+    this will prepare it for Solidity:
 
     # ecrecover in Solidity expects v as a native uint8, but r and s as left-padded bytes32
     # Remix / web3.js expect r and s to be encoded to hex
@@ -158,7 +191,31 @@ this will prepare it for Solidity:
 
 .. doctest::
 
-    >>> from web3 import Web3
+    >>> from cpc_fusion import Web3
+        >>> from eth_account.messages import defunct_hash_message
+
+        >>> hex_message = '0x49e299a55346'
+        >>> hex_signature = '0xe6ca9bba58c88611fad66a6ce8f996908195593807c4b38bd528d2cff09d4eb33e5bfbbf4d3e39b1a2fd816a7680c19ebebaf3a141b239934ad43cb33fcec8ce1c'
+
+        # ecrecover in Solidity expects a prefixed & hashed version of the message
+        >>> message_hash = defunct_hash_message(hexstr=hex_message)
+
+        # Remix / web3.js expect the message hash to be encoded to a hex string
+        >>> hex_message_hash = Web3.toHex(message_hash)
+
+        # ecrecover in Solidity expects the signature to be split into v as a uint8,
+        #   and r, s as a bytes32
+        # Remix / web3.js expect r and s to be encoded to hex
+        >>> sig = Web3.toBytes(hexstr=hex_signature)
+        >>> v, hex_r, hex_s = Web3.toInt(sig[-1]), Web3.toHex(sig[:32]), Web3.toHex(sig[32:64])
+
+        # ecrecover in Solidity takes the arguments in order = (msghash, v, r, s)
+        >>> ec_recover_args = (hex_message_hash, v, hex_r, hex_s)
+        >>> ec_recover_args
+        ('0x1476abb745d423bf09273f1afd887d951181d25adc66c4834a70491911b7f750',
+         28,
+         '0xe6ca9bba58c88611fad66a6ce8f996908195593807c4b38bd528d2cff09d4eb3',
+         '0x3e5bfbbf4d3e39b1a2fd816a7680c19ebebaf3a141b239934ad43cb33fcec8ce')
     >>> from eth_account.messages import defunct_hash_message
 
     >>> hex_message = '0x49e299a55346'
@@ -260,6 +317,50 @@ To sign a transaction locally that will invoke a smart contract:
 .. doctest::
 
     >>> from ethtoken.abi import EIP20_ABI
+        >>> from cpc_fusion.auto import w3
+
+        >>> unicorns = w3.eth.contract(address="0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359", abi=EIP20_ABI)
+
+        >>> nonce = w3.eth.getTransactionCount('0x5ce9454909639D2D17A3F753ce7d93fa0b9aB12E')  # doctest: +SKIP
+
+        # Build a transaction that invokes this contract's function, called transfer
+        >>> unicorn_txn = unicorns.functions.transfer(
+        ...     '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359',
+        ...     1,
+        ... ).buildTransaction({
+        ...     'chainId': 1,
+        ...     'gas': 70000,
+        ...     'gasPrice': w3.toWei('1', 'gwei'),
+        ...     'nonce': nonce,
+        ... })
+
+        >>> unicorn_txn
+        {'value': 0,
+         'chainId': 1,
+         'gas': 70000,
+         'gasPrice': 1000000000,
+         'nonce': 0,
+         'to': '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359',
+         'data': '0xa9059cbb000000000000000000000000fb6916095ca1df60bb79ce92ce3ea74c37c5d3590000000000000000000000000000000000000000000000000000000000000001'}
+
+        >>> private_key = b"\xb2\\}\xb3\x1f\xee\xd9\x12''\xbf\t9\xdcv\x9a\x96VK-\xe4\xc4rm\x03[6\xec\xf1\xe5\xb3d"
+        >>> signed_txn = w3.eth.account.signTransaction(unicorn_txn, private_key=private_key)
+        >>> signed_txn.hash
+        HexBytes('0x4795adc6a719fa64fa21822630c0218c04996e2689ded114b6553cef1ae36618')
+        >>> signed_txn.rawTransaction
+        HexBytes('0xf8a980843b9aca008301117094fb6916095ca1df60bb79ce92ce3ea74c37c5d35980b844a9059cbb000000000000000000000000fb6916095ca1df60bb79ce92ce3ea74c37c5d359000000000000000000000000000000000000000000000000000000000000000125a00fb532eea06b8f17d858d82ad61986efd0647124406be65d359e96cac3e004f0a02e5d7ffcfb7a6073a723be38e6733f353cf9367743ae94e2ccd6f1eba37116f4')
+        >>> signed_txn.r
+        7104843568152743554992057394334744036860247658813231830421570918634460546288
+        >>> signed_txn.s
+        20971591154030974221209741174186570949918731455961098911091818811306894497524
+        >>> signed_txn.v
+        37
+
+        >>> w3.eth.sendRawTransaction(signed_txn.rawTransaction)  # doctest: +SKIP
+
+        # When you run sendRawTransaction, you get the same result as the hash of the transaction:
+        >>> w3.toHex(w3.sha3(signed_txn.rawTransaction))
+        '0x4795adc6a719fa64fa21822630c0218c04996e2689ded114b6553cef1ae36618'
     >>> from web3.auto import w3
 
     >>> unicorns = w3.eth.contract(address="0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359", abi=EIP20_ABI)

@@ -1,6 +1,6 @@
 import pytest
 
-from web3._utils.abi import (
+from cpc_fusion._utils.abi import (
     is_probably_enum,
 )
 

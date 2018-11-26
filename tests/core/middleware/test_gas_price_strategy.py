@@ -3,7 +3,7 @@ from unittest.mock import (
     Mock,
 )
 
-from web3.middleware import (
+from cpc_fusion.middleware import (
     gas_price_strategy_middleware,
 )
 

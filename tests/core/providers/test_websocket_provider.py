@@ -12,11 +12,11 @@ import websockets
 from tests.utils import (
     wait_for_ws,
 )
-from web3 import Web3
-from web3.exceptions import (
+from cpc_fusion import Web3
+from cpc_fusion.exceptions import (
     ValidationError,
 )
-from web3.providers.websocket import (
+from cpc_fusion.providers.websocket import (
     WebsocketProvider,
 )
 

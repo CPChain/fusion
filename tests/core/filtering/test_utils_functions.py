@@ -7,7 +7,7 @@ from eth_abi import (
     encode_abi,
 )
 
-from web3._utils.filters import (
+from cpc_fusion._utils.filters import (
     match_fn,
 )
 

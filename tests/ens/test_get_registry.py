@@ -5,7 +5,7 @@ from unittest.mock import (
 )
 
 from ens import ENS
-from web3 import Web3
+from cpc_fusion import Web3
 
 
 def test_resolver_empty(ens):

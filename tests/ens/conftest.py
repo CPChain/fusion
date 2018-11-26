@@ -21,11 +21,11 @@ from ens.contract_data import (
     reverse_resolver_bytecode,
     reverse_resolver_bytecode_runtime,
 )
-from web3 import Web3
-from web3.contract import (
+from cpc_fusion import Web3
+from cpc_fusion.contract import (
     Contract,
 )
-from web3.providers.eth_tester import (
+from cpc_fusion.providers.eth_tester import (
     EthereumTesterProvider,
 )
 

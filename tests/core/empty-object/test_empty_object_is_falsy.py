@@ -1,4 +1,4 @@
-from web3._utils.empty import (
+from cpc_fusion._utils.empty import (
     empty,
 )
 

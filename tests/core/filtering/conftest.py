@@ -8,11 +8,11 @@ from eth_utils import (
     event_signature_to_log_topic,
 )
 
-from web3 import Web3
-from web3.middleware import (
+from cpc_fusion import Web3
+from cpc_fusion.middleware import (
     local_filter_middleware,
 )
-from web3.providers.eth_tester import (
+from cpc_fusion.providers.eth_tester import (
     EthereumTesterProvider,
 )
 

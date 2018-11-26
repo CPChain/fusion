@@ -4,7 +4,7 @@ from hexbytes import (
     HexBytes,
 )
 
-from web3._utils.toolz import (
+from cpc_fusion._utils.toolz import (
     compose,
     curry,
 )

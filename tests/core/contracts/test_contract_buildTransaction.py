@@ -2,10 +2,10 @@
 
 import pytest
 
-from web3._utils.toolz import (
+from cpc_fusion._utils.toolz import (
     dissoc,
 )
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     ValidationError,
 )
 

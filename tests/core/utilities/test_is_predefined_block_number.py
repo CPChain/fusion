@@ -1,6 +1,6 @@
 import pytest
 
-from web3._utils.blocks import (
+from cpc_fusion._utils.blocks import (
     is_predefined_block_number,
 )
 

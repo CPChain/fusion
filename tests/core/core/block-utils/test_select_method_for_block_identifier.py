@@ -1,9 +1,9 @@
 import pytest
 
-from web3._utils.blocks import (
+from cpc_fusion._utils.blocks import (
     select_method_for_block_identifier,
 )
-from web3._utils.toolz import (
+from cpc_fusion._utils.toolz import (
     partial,
 )
 

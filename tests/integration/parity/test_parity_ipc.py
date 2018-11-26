@@ -5,8 +5,8 @@ import tempfile
 from tests.integration.parity.utils import (
     wait_for_socket,
 )
-from web3 import Web3
-from web3._utils.module_testing import (
+from cpc_fusion import Web3
+from cpc_fusion._utils.module_testing import (
     NetModuleTest,
     VersionModuleTest,
 )

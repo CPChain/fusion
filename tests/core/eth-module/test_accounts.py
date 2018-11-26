@@ -12,18 +12,18 @@ from hexbytes import (
     HexBytes,
 )
 
-from web3 import (
+from cpc_fusion import (
     Account,
     Web3,
 )
-from web3._utils.encoding import (
+from cpc_fusion._utils.encoding import (
     to_bytes,
     to_hex,
 )
-from web3._utils.toolz import (
+from cpc_fusion._utils.toolz import (
     dissoc,
 )
-from web3.providers.eth_tester import (
+from cpc_fusion.providers.eth_tester import (
     EthereumTesterProvider,
 )
 

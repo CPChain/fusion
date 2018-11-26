@@ -1,15 +1,15 @@
 import pytest
 
-from web3 import Web3
-from web3.middleware import (
+from cpc_fusion import Web3
+from cpc_fusion.middleware import (
     construct_result_generator_middleware,
     local_filter_middleware,
 )
-from web3.middleware.filter import (
+from cpc_fusion.middleware.filter import (
     block_ranges,
     iter_latest_block_ranges,
 )
-from web3.providers.base import (
+from cpc_fusion.providers.base import (
     BaseProvider,
 )
 

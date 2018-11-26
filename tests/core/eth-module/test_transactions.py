@@ -1,10 +1,10 @@
 import pytest
 
-from web3.exceptions import (
+from cpc_fusion.exceptions import (
     TimeExhausted,
     ValidationError,
 )
-from web3.middleware.simulate_unmined_transaction import (
+from cpc_fusion.middleware.simulate_unmined_transaction import (
     unmined_receipt_simulator_middleware,
 )
 

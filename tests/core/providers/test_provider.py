@@ -1,5 +1,5 @@
-from web3 import Web3
-from web3.providers import (
+from cpc_fusion import Web3
+from cpc_fusion.providers import (
     AutoProvider,
     BaseProvider,
 )

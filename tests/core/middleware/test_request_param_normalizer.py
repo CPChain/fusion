@@ -1,11 +1,11 @@
 import pytest
 
-from web3 import Web3
-from web3.middleware import (  # noqa: F401
+from cpc_fusion import Web3
+from cpc_fusion.middleware import (  # noqa: F401
     construct_result_generator_middleware,
     request_parameter_normalizer,
 )
-from web3.providers.base import (
+from cpc_fusion.providers.base import (
     BaseProvider,
 )
 

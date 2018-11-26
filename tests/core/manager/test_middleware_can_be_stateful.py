@@ -1,7 +1,7 @@
-from web3.manager import (
+from cpc_fusion.manager import (
     RequestManager,
 )
-from web3.providers import (
+from cpc_fusion.providers import (
     BaseProvider,
 )
 
