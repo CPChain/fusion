@@ -68,6 +68,11 @@ logs
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
 
+# Fusion:
+.idea/fusion.iml
+.idea/misc.xml
+.idea/modules.xml
+
 # Sensitive or high-churn files:
 .idea/dataSources.ids
 .idea/dataSources.xml
