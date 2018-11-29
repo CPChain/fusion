@@ -236,24 +236,28 @@ class Cpc(Module):
                 )
             )
 
+    @property
     def getRNodes(self):
         return self.web3.manager.request_blocking(
             "eth_getRNodes",
             [],
         )
 
-    def getCurrentEpoch(self):
+    @property
+    def getCurrentView(self):
         return self.web3.manager.request_blocking(
-            "eth_getCurrentEpoch",
+            "eth_getCurrentView",
             [],
         )
 
-    def getCurrentRound(self):
+    @property
+    def getCurrentTerm(self):
         return self.web3.manager.request_blocking(
-            "eth_getCurrentRound",
+            "eth_getCurrentTerm",
             [],
         )
 
+    @property
     def getCommittees(self):
         return self.web3.manager.request_blocking(
             "eth_getCommittees",
