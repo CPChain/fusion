@@ -38,19 +38,19 @@ Properties
 The following properties are available on the ``web3.cpc`` namespace.
 
 
-.. py:attribute:: Eth.defaultAccount
+.. py:attribute:: Cpc.defaultAccount
 
     The ethereum address that will be used as the default ``from`` address for
     all transactions.
 
 
-.. py:attribute:: Eth.defaultBlock
+.. py:attribute:: Cpc.defaultBlock
 
     The default block number that will be used for any RPC methods that accept
     a block identifier.  Defaults to ``'latest'``.
 
 
-.. py:attribute:: Eth.syncing
+.. py:attribute:: Cpc.syncing
 
     * Delegates to ``cpc_syncing`` RPC Method
 
@@ -69,7 +69,7 @@ The following properties are available on the ``web3.cpc`` namespace.
         })
 
 
-.. py:attribute:: Eth.coinbase
+.. py:attribute:: Cpc.coinbase
 
     * Delegates to ``cpc_coinbase`` RPC Method
 
@@ -81,7 +81,7 @@ The following properties are available on the ``web3.cpc`` namespace.
         '0xd3cda913deb6f67967b99d67acdfa1712c293601'
 
 
-.. py:attribute:: Eth.mining
+.. py:attribute:: Cpc.mining
 
     * Delegates to ``cpc_mining`` RPC Method
 
@@ -93,7 +93,7 @@ The following properties are available on the ``web3.cpc`` namespace.
         False
 
 
-.. py:attribute:: Eth.hashrate
+.. py:attribute:: Cpc.hashrate
 
     * Delegates to ``cpc_hashrate`` RPC Method
 
@@ -105,7 +105,7 @@ The following properties are available on the ``web3.cpc`` namespace.
         906
 
 
-.. py:attribute:: Eth.gasPrice
+.. py:attribute:: Cpc.gasPrice
 
     * Delegates to ``eth_gasPrice`` RPC Method
 
@@ -117,7 +117,7 @@ The following properties are available on the ``web3.cpc`` namespace.
         20000000000
 
 
-.. py:attribute:: Eth.accounts
+.. py:attribute:: Cpc.accounts
 
     * Delegates to ``eth_accounts`` RPC Method
 
@@ -129,7 +129,7 @@ The following properties are available on the ``web3.cpc`` namespace.
         ['0xd3cda913deb6f67967b99d67acdfa1712c293601']
 
 
-.. py:attribute:: Eth.blockNumber
+.. py:attribute:: Cpc.blockNumber
 
     * Delegates to ``eth_blockNumber`` RPC Method
 
@@ -147,7 +147,7 @@ Methods
 The following methods are available on the ``web3.cpc`` namespace.
 
 
-.. py:method:: Eth.getBalance(account, block_identifier=cpc.defaultBlock)
+.. py:method:: Cpc.getBalance(account, block_identifier=cpc.defaultBlock)
 
     * Delegates to ``eth_getBalance`` RPC Method
 
@@ -162,7 +162,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         77320681768999138915
 
 
-.. py:method:: Eth.getStorageAt(account, position, block_identifier=cpc.defaultBlock)
+.. py:method:: Cpc.getStorageAt(account, position, block_identifier=cpc.defaultBlock)
 
     * Delegates to ``eth_getStorageAt`` RPC Method
 
@@ -177,7 +177,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         '0x00000000000000000000000000000000000000000000000000120a0b063499d4'
 
 
-.. py:method:: Eth.getCode(account, block_identifier=cpc.defaultBlock)
+.. py:method:: Cpc.getCode(account, block_identifier=cpc.defaultBlock)
 
     * Delegates to ``eth_getCode`` RPC Method
 
@@ -196,7 +196,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         '0x'
 
 
-.. py:method:: Eth.getBlock(block_identifier=cpc.defaultBlock, full_transactions=False)
+.. py:method:: Cpc.getBlock(block_identifier=cpc.defaultBlock, full_transactions=False)
 
     * Delegates to ``eth_getBlockByNumber`` or ``eth_getBlockByHash`` RPC Methods
 
@@ -285,7 +285,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         1
 
 
-.. py:method:: Eth.getCommittees
+.. py:method:: Cpc.getCommittees
 
     * Delegates to ``eth_getCommittees`` RPC Method
 
@@ -298,7 +298,7 @@ The following methods are available on the ``web3.cpc`` namespace.
 
 
 
-.. py:method:: Eth.getBlockTransactionCount(block_identifier)
+.. py:method:: Cpc.getBlockTransactionCount(block_identifier)
 
     * Delegates to ``eth_getBlockTransactionCountByNumber`` or
       ``eth_getBlockTransactionCountByHash`` RPC Methods
@@ -317,13 +317,13 @@ The following methods are available on the ``web3.cpc`` namespace.
         1
 
 
-.. py:method:: Eth.getUncle(block_identifier)
+.. py:method:: Cpc.getUncle(block_identifier)
 
     .. note:: Method to get an Uncle from its hash is not available through
-      RPC, a possible substitute is the method ``Eth.getUncleByBlock``
+      RPC, a possible substitute is the method ``Cpc.getUncleByBlock``
 
 
-.. py:method:: Eth.getUncleByBlock(block_identifier, uncle_index)
+.. py:method:: Cpc.getUncleByBlock(block_identifier, uncle_index)
 
     * Delegates to ``eth_getUncleByBlockHashAndIndex`` or
       ``eth_getUncleByBlockNumberAndIndex`` RPC methods
@@ -369,7 +369,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         })
 
 
-.. py:method:: Eth.getTransaction(transaction_hash)
+.. py:method:: Cpc.getTransaction(transaction_hash)
 
     * Delegates to ``eth_getTransactionByHAsh`` RPC Method
 
@@ -393,13 +393,13 @@ The following methods are available on the ``web3.cpc`` namespace.
         })
 
 
-.. py:method:: Eth.getTransactionFromBlock(block_identifier, transaction_index)
+.. py:method:: Cpc.getTransactionFromBlock(block_identifier, transaction_index)
 
   .. note:: This method is deprecated and replaced by
-    ``Eth.getTransactionByBlock``
+    ``Cpc.getTransactionByBlock``
 
 
-.. py:method:: Eth.getTransactionByBlock(block_identifier, transaction_index)
+.. py:method:: Cpc.getTransactionByBlock(block_identifier, transaction_index)
 
     * Delegates to ``eth_getTransactionByBlockNumberAndIndex`` or
       ``eth_getTransactionByBlockHashAndIndex`` RPC Methods
@@ -443,13 +443,13 @@ The following methods are available on the ``web3.cpc`` namespace.
         })
 
 
-.. py:method:: Eth.waitForTransactionReceipt(transaction_hash, timeout=120)
+.. py:method:: Cpc.waitForTransactionReceipt(transaction_hash, timeout=120)
 
     Waits for the transaction specified by ``transaction_hash`` to be included in a block, then
     returns its transaction receipt.
 
     Optionally, specify a ``timeout`` in seconds. If timeout elapses before the transaction
-    is added to a block, then :meth:`~Eth.waitForTransactionReceipt` raises a
+    is added to a block, then :meth:`~Cpc.waitForTransactionReceipt` raises a
     :class:`web3.exceptions.TimeExhausted` exception.
 
     .. code-block:: python
@@ -473,7 +473,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         })
 
 
-.. py:method:: Eth.getTransactionReceipt(transaction_hash)
+.. py:method:: Cpc.getTransactionReceipt(transaction_hash)
 
     * Delegates to ``eth_getTransactionReceipt`` RPC Method
 
@@ -500,7 +500,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         })
 
 
-.. py:method:: Eth.getTransactionCount(account, block_identifier=web3.cpc.defaultBlock)
+.. py:method:: Cpc.getTransactionCount(account, block_identifier=web3.cpc.defaultBlock)
 
     * Delegates to ``eth_getTransactionCount`` RPC Method
 
@@ -515,7 +515,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         340
 
 
-.. py:method:: Eth.sendTransaction(transaction)
+.. py:method:: Cpc.sendTransaction(transaction)
 
     * Delegates to ``eth_sendTransaction`` RPC Method
 
@@ -541,9 +541,9 @@ The following methods are available on the ``web3.cpc`` namespace.
 
     If the ``transaction`` specifies a ``data`` value but does not specify
     ``gas`` then the ``gas`` value will be populated using the
-    :meth:`~web3.cpc.Eth.estimateGas()` function with an additional buffer of ``100000``
+    :meth:`~web3.cpc.Cpc.estimateGas()` function with an additional buffer of ``100000``
     gas up to the ``gasLimit`` of the latest block.  In the event that the
-    value returned by :meth:`~web3.cpc.Eth.estimateGas()` method is greater than the
+    value returned by :meth:`~web3.cpc.Cpc.estimateGas()` method is greater than the
     ``gasLimit`` a ``ValueError`` will be raised.
 
 
@@ -553,7 +553,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
 
 
-.. py:method:: Eth.sendRawTransaction(raw_transaction)
+.. py:method:: Cpc.sendRawTransaction(raw_transaction)
 
     * Delegates to ``eth_sendRawTransaction`` RPC Method
 
@@ -575,7 +575,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
 
 
-.. py:method:: Eth.replaceTransaction(transaction_hash, new_transaction)
+.. py:method:: Cpc.replaceTransaction(transaction_hash, new_transaction)
 
     * Delegates to ``eth_sendTransaction`` RPC Method
 
@@ -584,7 +584,7 @@ The following methods are available on the ``web3.cpc`` namespace.
     The ``transaction_hash`` must be the hash of a pending transaction.
 
     The ``new_transaction`` parameter should be a dictionary with transaction fields
-    as required by :meth:`~web3.cpc.Eth.sendTransaction`. It will be used to entirely
+    as required by :meth:`~web3.cpc.Cpc.sendTransaction`. It will be used to entirely
     replace the transaction of ``transaction_hash`` without using any of the pending
     transaction's values.
 
@@ -618,18 +618,18 @@ The following methods are available on the ``web3.cpc`` namespace.
             })
 
 
-.. py:method:: Eth.modifyTransaction(transaction_hash, **transaction_params)
+.. py:method:: Cpc.modifyTransaction(transaction_hash, **transaction_params)
 
     * Delegates to ``eth_sendTransaction`` RPC Method
 
     Sends a transaction that modifies the transaction with ``transaction_hash``.
 
     ``transaction_params`` are keyword arguments that correspond to valid transaction
-    parameters as required by :meth:`~web3.cpc.Eth.sendTransaction`. The parameter values
+    parameters as required by :meth:`~web3.cpc.Cpc.sendTransaction`. The parameter values
     will override the pending transaction's values to create the replacement transaction
     to send.
 
-    The same validation and defaulting rules of :meth:`~web3.cpc.Eth.replaceTransaction` apply.
+    The same validation and defaulting rules of :meth:`~web3.cpc.Cpc.replaceTransaction` apply.
 
     This method returns the transaction hash of the newly modified transaction.
 
@@ -644,7 +644,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         >>> web3.cpc.modifyTransaction('0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331', value=2000)
 
 
-.. py:method:: Eth.sign(account, data=None, hexstr=None, text=None)
+.. py:method:: Cpc.sign(account, data=None, hexstr=None, text=None)
 
     * Delegates to ``eth_sign`` RPC Method
 
@@ -673,7 +673,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         '0x1a8bbe6eab8c72a219385681efefe565afd3accee35f516f8edf5ae82208fbd45a58f9f9116d8d88ba40fcd29076d6eada7027a3b412a9db55a0164547810cc401'
 
 
-.. py:method:: Eth.call(transaction, block_identifier=web3.cpc.defaultBlock)
+.. py:method:: Cpc.call(transaction, block_identifier=web3.cpc.defaultBlock)
 
     * Delegates to ``eth_call`` RPC Method
 
@@ -681,7 +681,7 @@ The following methods are available on the ``web3.cpc`` namespace.
     on the blockchain.  Returns the return value of the executed contract.
 
     The ``transaction`` parameter is handled in the same manner as the
-    :meth:`~web3.cpc.Eth.sendTransaction()` method.
+    :meth:`~web3.cpc.Cpc.sendTransaction()` method.
 
     .. code-block:: python
 
@@ -696,7 +696,7 @@ The following methods are available on the ``web3.cpc`` namespace.
     In most cases it is better to make contract function call through the :py:class:`web3.contract.Contract` interface.
 
 
-.. py:method:: Eth.estimateGas(transaction, block_identifier=None)
+.. py:method:: Cpc.estimateGas(transaction, block_identifier=None)
 
     * Delegates to ``eth_estimateGas`` RPC Method
 
@@ -718,7 +718,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         nodes would result in an error like:  ``ValueError: {'code': -32602, 'message': 'too many arguments, want at most 1'}``
 
 
-.. py:method:: Eth.generateGasPrice(transaction_params=None)
+.. py:method:: Cpc.generateGasPrice(transaction_params=None)
 
     Uses the selected gas price strategy to calculate a gas price. This method
     returns the gas price denominated in wei.
@@ -735,7 +735,7 @@ The following methods are available on the ``web3.cpc`` namespace.
         For information about how gas price can be customized in web3 see
         :ref:`Gas_Price`.
 
-.. py:method:: Eth.setGasPriceStrategy(gas_price_strategy)
+.. py:method:: Cpc.setGasPriceStrategy(gas_price_strategy)
 
     Set the selected gas price strategy. It must be a method of the signature
     ``(web3, transaction_params)`` and return a gas price denominated in wei.
@@ -747,7 +747,7 @@ The following methods are available on the ``web3.cpc`` object for interacting
 with the filtering API.
 
 
-.. py:method:: Eth.filter(filter_params)
+.. py:method:: Cpc.filter(filter_params)
 
     * Delegates to ``eth_newFilter``, ``eth_newBlockFilter``, and
       ``eth_newPendingTransactionFilter`` RPC Methods.
@@ -800,7 +800,7 @@ with the filtering API.
         >>> web3.cpc.filter({'fromBlock': 1000000, 'toBlock': 1000100, 'address': '0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b'})
         <LogFilter at 0x10b7803d8>
 
-.. py:method:: Eth.getFilterChanges(self, filter_id)
+.. py:method:: Cpc.getFilterChanges(self, filter_id)
 
     * Delegates to ``eth_getFilterChanges`` RPC Method.
 
@@ -828,7 +828,7 @@ with the filtering API.
         ]
 
 
-.. py:method:: Eth.getFilterLogs(self, filter_id)
+.. py:method:: Cpc.getFilterLogs(self, filter_id)
 
     * Delegates to ``eth_getFilterLogs`` RPC Method.
 
@@ -855,7 +855,7 @@ with the filtering API.
         ]
 
 
-.. py:method:: Eth.uninstallFilter(self, filter_id)
+.. py:method:: Cpc.uninstallFilter(self, filter_id)
 
     * Delegates to ``eth_uninstallFilter`` RPC Method.
 
@@ -871,17 +871,17 @@ with the filtering API.
         False  # already uninstalled.
 
 
-.. py:method:: Eth.getLogs(filter_params)
+.. py:method:: Cpc.getLogs(filter_params)
 
     This is the equivalent of: creating a new
-    filter, running :meth:`~Eth.getFilterLogs`, and then uninstalling the filter. See
-    :meth:`~Eth.filter` for details on allowed filter parameters.
+    filter, running :meth:`~Cpc.getFilterLogs`, and then uninstalling the filter. See
+    :meth:`~Cpc.filter` for details on allowed filter parameters.
 
 
 Contracts
 ---------
 
-.. py:method:: Eth.contract(address=None, contract_name=None, ContractFactoryClass=Contract, **contract_factory_kwargs)
+.. py:method:: Cpc.contract(address=None, contract_name=None, ContractFactoryClass=Contract, **contract_factory_kwargs)
 
     If ``address`` is provided, then this method will return an instance of the
     contract defined by ``abi``. The address may be a hex string,
@@ -943,9 +943,9 @@ Contracts
 
     See :doc:`./contracts` for more information about how to use contracts.
 
-.. py:method:: Eth.setContractFactory(contractFactoryClass)
+.. py:method:: Cpc.setContractFactory(contractFactoryClass)
 
     Modify the default contract factory from ``Contract`` to ``contractFactoryClass``.
-    Future calls to ``Eth.contract()`` will then default to ``contractFactoryClass``.
+    Future calls to ``Cpc.contract()`` will then default to ``contractFactoryClass``.
 
     An example of an alternative Contract Factory is ``ConciseContract``.
