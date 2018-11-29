@@ -1,12 +1,12 @@
 web3.cpc API
 =============
 
-.. py:module:: web3.eth
+.. py:module:: web3.cpc
 
-.. py:class:: Eth
+.. py:class:: Cpc
 
-The ``web3.eth`` object exposes the following properties and methods to
-interact with the RPC APIs under the ``eth_`` namespace.
+The ``web3.cpc`` object exposes the following properties and methods to
+interact with the RPC APIs under the ``cpc_`` namespace.
 
 Often, when a property or method returns a mapping of keys to values, it
 will return an ``AttributeDict`` which acts like a ``dict`` but you can
@@ -15,7 +15,7 @@ you can find the latest block number in these two ways:
 
     .. code-block:: python
 
-        >>> block = web3.eth.getBlock('latest')
+        >>> block = web3.cpc.getBlock('latest')
         AttributeDict({
           'hash': '0xe8ad537a261e6fff80d551d8d087ee0f2202da9b09b64d172a5f45e818eb472a',
           'number': 4022281,
@@ -35,7 +35,7 @@ you can find the latest block number in these two ways:
 Properties
 ----------
 
-The following properties are available on the ``web3.eth`` namespace.
+The following properties are available on the ``web3.cpc`` namespace.
 
 
 .. py:attribute:: Eth.defaultAccount
@@ -52,14 +52,14 @@ The following properties are available on the ``web3.eth`` namespace.
 
 .. py:attribute:: Eth.syncing
 
-    * Delegates to ``eth_syncing`` RPC Method
+    * Delegates to ``cpc_syncing`` RPC Method
 
     Returns either ``False`` if the node is not syncing or a dictionary
     showing sync status.
 
     .. code-block:: python
 
-        >>> web3.eth.syncing
+        >>> web3.cpc.syncing
         AttributeDict({
             'currentBlock': 2177557,
             'highestBlock': 2211611,
@@ -71,37 +71,37 @@ The following properties are available on the ``web3.eth`` namespace.
 
 .. py:attribute:: Eth.coinbase
 
-    * Delegates to ``eth_coinbase`` RPC Method
+    * Delegates to ``cpc_coinbase`` RPC Method
 
     Returns the current *Coinbase* address.
 
     .. code-block:: python
 
-        >>> web3.eth.coinbase
+        >>> web3.cpc.coinbase
         '0xd3cda913deb6f67967b99d67acdfa1712c293601'
 
 
 .. py:attribute:: Eth.mining
 
-    * Delegates to ``eth_mining`` RPC Method
+    * Delegates to ``cpc_mining`` RPC Method
 
     Returns boolean as to whether the node is currently mining.
 
     .. code-block:: python
 
-        >>> web3.eth.mining
+        >>> web3.cpc.mining
         False
 
 
 .. py:attribute:: Eth.hashrate
 
-    * Delegates to ``eth_hashrate`` RPC Method
+    * Delegates to ``cpc_hashrate`` RPC Method
 
     Returns the current number of hashes per second the node is mining with.
 
     .. code-block:: python
 
-        >>> web3.eth.hashrate
+        >>> web3.cpc.hashrate
         906
 
 
@@ -113,7 +113,7 @@ The following properties are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.gasPrice
+        >>> web3.cpc.gasPrice
         20000000000
 
 
@@ -125,7 +125,7 @@ The following properties are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.accounts
+        >>> web3.cpc.accounts
         ['0xd3cda913deb6f67967b99d67acdfa1712c293601']
 
 
@@ -137,17 +137,17 @@ The following properties are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.blockNumber
+        >>> web3.cpc.blockNumber
         2206939
 
 
 Methods
 -------
 
-The following methods are available on the ``web3.eth`` namespace.
+The following methods are available on the ``web3.cpc`` namespace.
 
 
-.. py:method:: Eth.getBalance(account, block_identifier=eth.defaultBlock)
+.. py:method:: Eth.getBalance(account, block_identifier=cpc.defaultBlock)
 
     * Delegates to ``eth_getBalance`` RPC Method
 
@@ -158,11 +158,11 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getBalance('0xd3cda913deb6f67967b99d67acdfa1712c293601')
+        >>> web3.cpc.getBalance('0xd3cda913deb6f67967b99d67acdfa1712c293601')
         77320681768999138915
 
 
-.. py:method:: Eth.getStorageAt(account, position, block_identifier=eth.defaultBlock)
+.. py:method:: Eth.getStorageAt(account, position, block_identifier=cpc.defaultBlock)
 
     * Delegates to ``eth_getStorageAt`` RPC Method
 
@@ -173,11 +173,11 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getStorageAt('0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b', 0)
+        >>> web3.cpc.getStorageAt('0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b', 0)
         '0x00000000000000000000000000000000000000000000000000120a0b063499d4'
 
 
-.. py:method:: Eth.getCode(account, block_identifier=eth.defaultBlock)
+.. py:method:: Eth.getCode(account, block_identifier=cpc.defaultBlock)
 
     * Delegates to ``eth_getCode`` RPC Method
 
@@ -189,14 +189,14 @@ The following methods are available on the ``web3.eth`` namespace.
     .. code-block:: python
 
         # For a contract address.
-        >>> web3.eth.getCode('0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b')
+        >>> web3.cpc.getCode('0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b')
         '0x6060604052361561027c5760e060020a60003504630199.....'
         # For a private key address.
-        >>> web3.eth.getCode('0xd3cda913deb6f67967b99d67acdfa1712c293601')
+        >>> web3.cpc.getCode('0xd3cda913deb6f67967b99d67acdfa1712c293601')
         '0x'
 
 
-.. py:method:: Eth.getBlock(block_identifier=eth.defaultBlock, full_transactions=False)
+.. py:method:: Eth.getBlock(block_identifier=cpc.defaultBlock, full_transactions=False)
 
     * Delegates to ``eth_getBlockByNumber`` or ``eth_getBlockByHash`` RPC Methods
 
@@ -211,7 +211,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getBlock(2000000)
+        >>> web3.cpc.getBlock(2000000)
         AttributeDict({
             'difficulty': 49824742724615,
             'extraData': '0xe4b883e5bda9e7a59ee4bb99e9b1bc',
@@ -311,9 +311,9 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getBlockTransactionCount(46147)
+        >>> web3.cpc.getBlockTransactionCount(46147)
         1
-        >>> web3.eth.getBlockTransactionCount('0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd')  # block 46147
+        >>> web3.cpc.getBlockTransactionCount('0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd')  # block 46147
         1
 
 
@@ -337,7 +337,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getUncleByBlock(56160, 0)
+        >>> web3.cpc.getUncleByBlock(56160, 0)
         AttributeDict({
           'author': '0xbe4532e1b1db5c913cf553be76180c1777055403',
           'difficulty': '0x17dd9ca0afe',
@@ -363,7 +363,7 @@ The following methods are available on the ``web3.eth`` namespace.
         })
 
         # You can also refer to the block by hash:
-        >>> web3.eth.getUncleByBlock('0x685b2226cbf6e1f890211010aa192bf16f0a0cba9534264a033b023d7367b845', 0)
+        >>> web3.cpc.getUncleByBlock('0x685b2226cbf6e1f890211010aa192bf16f0a0cba9534264a033b023d7367b845', 0)
         AttributeDict({
             ...
         })
@@ -377,7 +377,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getTransaction('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')
+        >>> web3.cpc.getTransaction('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')
         AttributeDict({
             'blockHash': '0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd',
             'blockNumber': 46147,
@@ -413,7 +413,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getTransactionFromBlock(46147, 0)
+        >>> web3.cpc.getTransactionFromBlock(46147, 0)
         AttributeDict({
             'blockHash': '0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd',
             'blockNumber': 46147,
@@ -427,7 +427,7 @@ The following methods are available on the ``web3.eth`` namespace.
             'transactionIndex': 0,
             'value': 31337,
         })
-        >>> web3.eth.getTransactionFromBlock('0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd', 0)
+        >>> web3.cpc.getTransactionFromBlock('0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd', 0)
         AttributeDict({
             'blockHash': '0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd',
             'blockNumber': 46147,
@@ -454,7 +454,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.waitForTransactionReceipt('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')
+        >>> web3.cpc.waitForTransactionReceipt('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')
         # If transaction is not yet in a block, time passes, while the thread sleeps...
         # ...
         # Then when the transaction is added to a block, its receipt is returned:
@@ -481,10 +481,10 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getTransactionReceipt('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')  # not yet mined
+        >>> web3.cpc.getTransactionReceipt('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')  # not yet mined
         None
         # wait for it to be mined....
-        >>> web3.eth.getTransactionReceipt('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')
+        >>> web3.cpc.getTransactionReceipt('0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060')
         AttributeDict({
             'blockHash': '0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd',
             'blockNumber': 46147,
@@ -500,7 +500,7 @@ The following methods are available on the ``web3.eth`` namespace.
         })
 
 
-.. py:method:: Eth.getTransactionCount(account, block_identifier=web3.eth.defaultBlock)
+.. py:method:: Eth.getTransactionCount(account, block_identifier=web3.cpc.defaultBlock)
 
     * Delegates to ``eth_getTransactionCount`` RPC Method
 
@@ -511,7 +511,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.getTransactionCount('0xd3cda913deb6f67967b99d67acdfa1712c293601')
+        >>> web3.cpc.getTransactionCount('0xd3cda913deb6f67967b99d67acdfa1712c293601')
         340
 
 
@@ -524,7 +524,7 @@ The following methods are available on the ``web3.eth`` namespace.
     The ``transaction`` parameter should be a dictionary with the following fields.
 
     * ``from``: ``bytes or text``, hex address or ENS name - (optional, default:
-      ``web3.eth.defaultAccount``) The address the transaction is send from.
+      ``web3.cpc.defaultAccount``) The address the transaction is send from.
     * ``to``: ``bytes or text``, hex address or ENS name - (optional when creating new
       contract) The address the transaction is directed to.
     * ``gas``: ``integer`` - (optional, default: 90000) Integer of the gas
@@ -541,15 +541,15 @@ The following methods are available on the ``web3.eth`` namespace.
 
     If the ``transaction`` specifies a ``data`` value but does not specify
     ``gas`` then the ``gas`` value will be populated using the
-    :meth:`~web3.eth.Eth.estimateGas()` function with an additional buffer of ``100000``
+    :meth:`~web3.cpc.Eth.estimateGas()` function with an additional buffer of ``100000``
     gas up to the ``gasLimit`` of the latest block.  In the event that the
-    value returned by :meth:`~web3.eth.Eth.estimateGas()` method is greater than the
+    value returned by :meth:`~web3.cpc.Eth.estimateGas()` method is greater than the
     ``gasLimit`` a ``ValueError`` will be raised.
 
 
     .. code-block:: python
 
-        >>> web3.eth.sendTransaction({'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601', 'from': web3.eth.coinbase, 'value': 12345})
+        >>> web3.cpc.sendTransaction({'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601', 'from': web3.cpc.coinbase, 'value': 12345})
         '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
 
 
@@ -561,9 +561,9 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> signed_txn = w3.eth.account.signTransaction(dict(
-            nonce=w3.eth.getTransactionCount(w3.eth.coinbase),
-            gasPrice=w3.eth.gasPrice,
+        >>> signed_txn = w3.cpc.account.signTransaction(dict(
+            nonce=w3.cpc.getTransactionCount(w3.cpc.coinbase),
+            gasPrice=w3.cpc.gasPrice,
             gas=100000,
             to='0xd3cda913deb6f67967b99d67acdfa1712c293601',
             value=12345,
@@ -571,7 +571,7 @@ The following methods are available on the ``web3.eth`` namespace.
           ),
           private_key_for_senders_account,
         )
-        >>> w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+        >>> w3.cpc.sendRawTransaction(signed_txn.rawTransaction)
         '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
 
 
@@ -584,7 +584,7 @@ The following methods are available on the ``web3.eth`` namespace.
     The ``transaction_hash`` must be the hash of a pending transaction.
 
     The ``new_transaction`` parameter should be a dictionary with transaction fields
-    as required by :meth:`~web3.eth.Eth.sendTransaction`. It will be used to entirely
+    as required by :meth:`~web3.cpc.Eth.sendTransaction`. It will be used to entirely
     replace the transaction of ``transaction_hash`` without using any of the pending
     transaction's values.
 
@@ -605,15 +605,15 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> tx = web3.eth.sendTransaction({
+        >>> tx = web3.cpc.sendTransaction({
                 'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601',
-                'from': web3.eth.coinbase,
+                'from': web3.cpc.coinbase,
                 'value': 1000
             })
         '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
-        >>> web3.eth.replaceTransaction('0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331', {
+        >>> web3.cpc.replaceTransaction('0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331', {
                 'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601',
-                'from': web3.eth.coinbase,
+                'from': web3.cpc.coinbase,
                 'value': 2000
             })
 
@@ -625,23 +625,23 @@ The following methods are available on the ``web3.eth`` namespace.
     Sends a transaction that modifies the transaction with ``transaction_hash``.
 
     ``transaction_params`` are keyword arguments that correspond to valid transaction
-    parameters as required by :meth:`~web3.eth.Eth.sendTransaction`. The parameter values
+    parameters as required by :meth:`~web3.cpc.Eth.sendTransaction`. The parameter values
     will override the pending transaction's values to create the replacement transaction
     to send.
 
-    The same validation and defaulting rules of :meth:`~web3.eth.Eth.replaceTransaction` apply.
+    The same validation and defaulting rules of :meth:`~web3.cpc.Eth.replaceTransaction` apply.
 
     This method returns the transaction hash of the newly modified transaction.
 
     .. code-block:: python
 
-        >>> tx = web3.eth.sendTransaction({
+        >>> tx = web3.cpc.sendTransaction({
                 'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601',
-                'from': web3.eth.coinbase,
+                'from': web3.cpc.coinbase,
                 'value': 1000
             })
         '0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331'
-        >>> web3.eth.modifyTransaction('0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331', value=2000)
+        >>> web3.cpc.modifyTransaction('0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331', value=2000)
 
 
 .. py:method:: Eth.sign(account, data=None, hexstr=None, text=None)
@@ -657,23 +657,23 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> web3.eth.sign(
+        >>> web3.cpc.sign(
               '0xd3cda913deb6f67967b99d67acdfa1712c293601',
               text='some-text-tö-sign')
         '0x1a8bbe6eab8c72a219385681efefe565afd3accee35f516f8edf5ae82208fbd45a58f9f9116d8d88ba40fcd29076d6eada7027a3b412a9db55a0164547810cc401'
 
-        >>> web3.eth.sign(
+        >>> web3.cpc.sign(
               '0xd3cda913deb6f67967b99d67acdfa1712c293601',
               data=b'some-text-t\xc3\xb6-sign')
         '0x1a8bbe6eab8c72a219385681efefe565afd3accee35f516f8edf5ae82208fbd45a58f9f9116d8d88ba40fcd29076d6eada7027a3b412a9db55a0164547810cc401'
 
-        >>> web3.eth.sign(
+        >>> web3.cpc.sign(
               '0xd3cda913deb6f67967b99d67acdfa1712c293601',
               hexstr='0x736f6d652d746578742d74c3b62d7369676e')
         '0x1a8bbe6eab8c72a219385681efefe565afd3accee35f516f8edf5ae82208fbd45a58f9f9116d8d88ba40fcd29076d6eada7027a3b412a9db55a0164547810cc401'
 
 
-.. py:method:: Eth.call(transaction, block_identifier=web3.eth.defaultBlock)
+.. py:method:: Eth.call(transaction, block_identifier=web3.cpc.defaultBlock)
 
     * Delegates to ``eth_call`` RPC Method
 
@@ -681,7 +681,7 @@ The following methods are available on the ``web3.eth`` namespace.
     on the blockchain.  Returns the return value of the executed contract.
 
     The ``transaction`` parameter is handled in the same manner as the
-    :meth:`~web3.eth.Eth.sendTransaction()` method.
+    :meth:`~web3.cpc.Eth.sendTransaction()` method.
 
     .. code-block:: python
 
@@ -690,7 +690,7 @@ The following methods are available on the ``web3.eth`` namespace.
         >>> myContract.functions.getVar().call()
         1
         # The above call equivalent to the raw call:
-        >>> we3.eth.call({'value': 0, 'gas': 21736, 'gasPrice': 1, 'to': '0xc305c901078781C232A2a521C2aF7980f8385ee9', 'data': '0x477a5c98'})
+        >>> we3.cpc.call({'value': 0, 'gas': 21736, 'gasPrice': 1, 'to': '0xc305c901078781C232A2a521C2aF7980f8385ee9', 'data': '0x477a5c98'})
         HexBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
 
     In most cases it is better to make contract function call through the :py:class:`web3.contract.Contract` interface.
@@ -705,11 +705,11 @@ The following methods are available on the ``web3.eth`` namespace.
     be used as a gas estimate.
 
     The ``transaction`` and ``block_identifier`` parameters are handled in the
-    same manner as the :meth:`~web3.eth.call()` method.
+    same manner as the :meth:`~web3.cpc.call()` method.
 
     .. code-block:: python
 
-        >>> web3.eth.estimateGas({'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601', 'from': web3.eth.coinbase, 'value': 12345})
+        >>> web3.cpc.estimateGas({'to': '0xd3cda913deb6f67967b99d67acdfa1712c293601', 'from': web3.cpc.coinbase, 'value': 12345})
         21000
 
     .. note::
@@ -728,7 +728,7 @@ The following methods are available on the ``web3.eth`` namespace.
 
     .. code-block:: python
 
-        >>> Web3.eth.generateGasPrice()
+        >>> Web3.cpc.generateGasPrice()
         20000000000
 
     .. note::
@@ -743,7 +743,7 @@ The following methods are available on the ``web3.eth`` namespace.
 Filters
 -------
 
-The following methods are available on the ``web3.eth`` object for interacting
+The following methods are available on the ``web3.cpc`` object for interacting
 with the filtering API.
 
 
@@ -793,11 +793,11 @@ with the filtering API.
 
     .. code-block:: python
 
-        >>> web3.eth.filter('latest')
+        >>> web3.cpc.filter('latest')
         <BlockFilter at 0x10b72dc28>
-        >>> web3.eth.filter('pending')
+        >>> web3.cpc.filter('pending')
         <TransactionFilter at 0x10b780340>
-        >>> web3.eth.filter({'fromBlock': 1000000, 'toBlock': 1000100, 'address': '0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b'})
+        >>> web3.cpc.filter({'fromBlock': 1000000, 'toBlock': 1000100, 'address': '0x6c8f2a135f6ed072de4503bd7c4999a1a17f824b'})
         <LogFilter at 0x10b7803d8>
 
 .. py:method:: Eth.getFilterChanges(self, filter_id)
@@ -809,8 +809,8 @@ with the filtering API.
 
     .. code-block:: python
 
-        >>> filt = web3.eth.filter()
-        >>> web3.eth.getFilterChanges(filt.filter_id)
+        >>> filt = web3.cpc.filter()
+        >>> web3.cpc.getFilterChanges(filt.filter_id)
         [
             {
                 'address': '0xdc3a9db694bcdd55ebae4a89b22ac6d12b3f0c24',
@@ -836,8 +836,8 @@ with the filtering API.
 
     .. code-block:: python
 
-        >>> filt = web3.eth.filter()
-        >>> web3.eth.getFilterLogs(filt.filter_id)
+        >>> filt = web3.cpc.filter()
+        >>> web3.cpc.getFilterLogs(filt.filter_id)
         [
             {
                 'address': '0xdc3a9db694bcdd55ebae4a89b22ac6d12b3f0c24',
@@ -864,10 +864,10 @@ with the filtering API.
 
     .. code-block:: python
 
-        >>> filt = web3.eth.filter()
-        >>> web3.eth.uninstallFilter(filt.filter_id)
+        >>> filt = web3.cpc.filter()
+        >>> web3.cpc.uninstallFilter(filt.filter_id)
         True
-        >>> web3.eth.uninstallFilter(filt.filter_id)
+        >>> web3.cpc.uninstallFilter(filt.filter_id)
         False  # already uninstalled.
 
 
@@ -885,7 +885,7 @@ Contracts
 
     If ``address`` is provided, then this method will return an instance of the
     contract defined by ``abi``. The address may be a hex string,
-    or an ENS name like ``'mycontract.eth'``.
+    or an ENS name like ``'mycontract.cpc'``.
 
     .. code-block:: python
 
@@ -893,10 +893,10 @@ Contracts
 
         w3 = Web3(...)
 
-        contract = w3.eth.contract(address='0x000000000000000000000000000000000000dead', abi=...)
+        contract = w3.cpc.contract(address='0x000000000000000000000000000000000000dead', abi=...)
 
         # alternatively:
-        contract = w3.eth.contract(address='mycontract.eth', abi=...)
+        contract = w3.cpc.contract(address='mycontract.cpc', abi=...)
 
     .. note::
 
@@ -914,11 +914,11 @@ Contracts
 
         w3 = Web3(...)
 
-        Contract = w3.eth.contract(abi=...)
+        Contract = w3.cpc.contract(abi=...)
 
         # later, initialize contracts with the same metadata at different addresses:
         contract1 = Contract(address='0x000000000000000000000000000000000000dead')
-        contract2 = Contract(address='mycontract.eth')
+        contract2 = Contract(address='mycontract.cpc')
 
     ``contract_name`` will be used as the name of the contract class.  If it is
     ``None`` then the name of the ``ContractFactoryClass`` will be used.
