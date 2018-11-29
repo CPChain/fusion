@@ -211,28 +211,25 @@ The following methods are available on the ``web3.cpc`` namespace.
 
     .. code-block:: python
 
-        >>> web3.cpc.getBlock(2000000)
-        AttributeDict({
-            'difficulty': 49824742724615,
-            'extraData': '0xe4b883e5bda9e7a59ee4bb99e9b1bc',
-            'gasLimit': 4712388,
-            'gasUsed': 21000,
-            'hash': '0xc0f4906fea23cf6f3cce98cb44e8e1449e455b28d684dfa9ff65426495584de6',
-            'logsBloom': '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-            'miner': '0x61c808d82a3ac53231750dadc13c777b59310bd9',
-            'nonce': '0x3b05c6d5524209f1',
-            'number': 2000000,
-            'parentHash': '0x57ebf07eb9ed1137d41447020a25e51d30a0c272b5896571499c82c33ecb7288',
-            'receiptRoot': '0x84aea4a7aad5c5899bd5cfc7f309cc379009d30179316a2a7baa4a2ea4a438ac',
-            'sha3Uncles': '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
-            'size': 650,
-            'stateRoot': '0x96dbad955b166f5119793815c36f11ffa909859bbfeb64b735cca37cbf10bef1',
-            'timestamp': 1470173578,
-            'totalDifficulty': 44010101827705409388,
-            'transactions': ['0xc55e2b90168af6972193c1f86fa4d7d7b31a29c156665d15b9cd48618b5177ef'],
-            'transactionsRoot': '0xb31f174d27b99cdae8e746bd138a01ce60d8dd7b224f7c60845914def05ecc58',
-            'uncles': [],
-        })
+        >>> cf.cpc.getBlock(100)
+        AttributeDict({'difficulty': 2,
+         'extraData': HexBytes('0xdd85302e302e31876370636861696e88676f312e31302e34856c696e75780000'),
+         'gasLimit': 4712388,
+         'gasUsed': 0,
+         'hash': HexBytes('0xf52f56f96b704e02cf67f797ccbf33a42a095cc00aa9c2be6530ee02b9d34ad7'),
+         'logsBloom': HexBytes('0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'),
+         'miner': '0xc05302AceBd0730E3A18A058d7d1CB1204C4a092',
+         'mixHash': HexBytes('0x0000000000000000000000000000000000000000000000000000000000000000'),
+         'nonce': HexBytes('0x0000000000000000'),
+         'number': 100,
+         'parentHash': HexBytes('0x7ff55edcbd638510900c0b4a5d5c6cbe66f8f1ff61f66a30f12bd4e1d263d89a'),
+         'receiptsRoot': HexBytes('0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'),
+         'size': 934,
+         'stateRoot': HexBytes('0x7761096fe7777161e4e66463e17df6a2b555054c369418295703a9ea93008bca'),
+         'timestamp': 1543488712,
+         'totalDifficulty': 201,
+         'transactions': [],
+         'transactionsRoot': HexBytes('0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421')})
 
 
 .. py:method:: Cpc.getRNodes
@@ -249,7 +246,6 @@ The following methods are available on the ``web3.cpc`` namespace.
 
         #!/usr/bin/env python
         # -*- coding: utf-8 -*-
-        from cpc_fusion import cpc
         from cpc_fusion import Web3
         from cpc_fusion.middleware import geth_poa_middleware
 
@@ -317,56 +313,6 @@ The following methods are available on the ``web3.cpc`` namespace.
         1
 
 
-.. py:method:: Cpc.getUncle(block_identifier)
-
-    .. note:: Method to get an Uncle from its hash is not available through
-      RPC, a possible substitute is the method ``Cpc.getUncleByBlock``
-
-
-.. py:method:: Cpc.getUncleByBlock(block_identifier, uncle_index)
-
-    * Delegates to ``eth_getUncleByBlockHashAndIndex`` or
-      ``eth_getUncleByBlockNumberAndIndex`` RPC methods
-
-    Returns the uncle at the index specified by ``uncle_index``
-    from the block specified by ``block_identifier``.  Delegates to
-    ``eth_getUncleByBlockNumberAndIndex`` if ``block_identifier`` is an
-    integer or one of the predefined block parameters ``'latest', 'earliest',
-    'pending'``, otherwise delegates to
-    ``eth_getUncleByBlockHashAndIndex``.
-
-    .. code-block:: python
-
-        >>> web3.cpc.getUncleByBlock(56160, 0)
-        AttributeDict({
-          'author': '0xbe4532e1b1db5c913cf553be76180c1777055403',
-          'difficulty': '0x17dd9ca0afe',
-          'extraData': '0x476574682f686261722f76312e302e312f6c696e75782f676f312e342e32',
-          'gasLimit': '0x2fefd8',
-          'gasUsed': '0x0',
-          'hash': '0xc78c35720d930f9ef34b4e6fb9d02ffec936f9b02a8f0fa858456e4afd4d5614',
-          'logsBloom':'0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
-          'miner': '0xbe4532e1b1db5c913cf553be76180c1777055403',
-          'mixHash': '0x041e14603f35a82f6023802fec96ef760433292434a39787514f140950597e5e',
-          'nonce': '0x5d2b7e3f1af09995',
-          'number': '0xdb5e',
-          'parentHash': '0xcc30e8a9b15c548d5bf113c834143a8f0e1909fbfea96b2a208dc154293a78cf',
-          'receiptsRoot': '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-          'sealFields': ['0xa0041e14603f35a82f6023802fec96ef760433292434a39787514f140950597e5e', '0x885d2b7e3f1af09995'],
-          'sha3Uncles': '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
-          'size': None, 'stateRoot': '0x8ce2b1bf8e25a06a8ca34c647ff5fd0fa48ac725cc07f657ae1645ab8ef68c91',
-          'timestamp': '0x55c6a972',
-          'totalDifficulty': '0xce4c4f0a0b810b',
-          'transactions': [],
-          'transactionsRoot': '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-          'uncles': []
-        })
-
-        # You can also refer to the block by hash:
-        >>> web3.cpc.getUncleByBlock('0x685b2226cbf6e1f890211010aa192bf16f0a0cba9534264a033b023d7367b845', 0)
-        AttributeDict({
-            ...
-        })
 
 
 .. py:method:: Cpc.getTransaction(transaction_hash)
