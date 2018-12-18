@@ -1,8 +1,6 @@
 # Fusion API
 
-[![Join the chat at https://gitter.im/ethereum/web3.py](https://badges.gitter.im/ethereum/web3.py.svg)](https://gitter.im/ethereum/web3.py?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Build Status](https://circleci.com/gh/ethereum/web3.py.svg?style=shield)](https://circleci.com/gh/ethereum/web3.py.svg?style=shield)
+![](https://img.shields.io/badge/language-python3-orange.svg)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)[![Pull Requests](https://img.shields.io/bitbucket/pr-raw/cpchain/chain.svg)](https://bitbucket.org/cpchain/chain/pull-requests/)[![Follow Twitter](https://img.shields.io/twitter/follow/cpchain_io.svg?label=Follow&style=social)](https://twitter.com/intent/follow?screen_name=cpchain_io)
 
 A Python package based on  [web3.py](https://github.com/ethereum/web3.py) to interact with cpchain.
 
