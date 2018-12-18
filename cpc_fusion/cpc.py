@@ -226,9 +226,9 @@ class Cpc(Module):
         )
 
     @property
-    def getCommittees(self):
+    def getBlockGenerationInfo(self):
         return self.web3.manager.request_blocking(
-            "eth_getCommittees",
+            "eth_getBlockGenerationInfo",
             [],
         )
 
