@@ -1,4 +1,5 @@
 # Fusion API
+![](https://github.com/CPChain/fusion/raw/master/fusion.png)
 
 ![](https://img.shields.io/badge/language-python3-orange.svg)[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)[![Pull Requests](https://img.shields.io/bitbucket/pr-raw/cpchain/chain.svg)](https://bitbucket.org/cpchain/chain/pull-requests/)[![Follow Twitter](https://img.shields.io/twitter/follow/cpchain_io.svg?label=Follow&style=social)](https://twitter.com/intent/follow?screen_name=cpchain_io)
 
