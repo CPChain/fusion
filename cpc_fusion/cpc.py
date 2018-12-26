@@ -1,4 +1,4 @@
-from eth_account import (
+from .cpc_account import (
     Account,
 )
 from eth_utils import (
@@ -89,10 +89,6 @@ class Cpc(Module):
     @property
     def mining(self):
         return self.web3.manager.request_blocking("eth_mining", [])
-
-    @property
-    def hashrate(self):
-        return self.web3.manager.request_blocking("eth_hashrate", [])
 
     @property
     def gasPrice(self):
