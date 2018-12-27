@@ -91,10 +91,6 @@ class Cpc(Module):
         return self.web3.manager.request_blocking("eth_mining", [])
 
     @property
-    def hashrate(self):
-        return self.web3.manager.request_blocking("eth_hashrate", [])
-
-    @property
     def gasPrice(self):
         return self.web3.manager.request_blocking("eth_gasPrice", [])
 
