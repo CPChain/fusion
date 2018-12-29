@@ -268,7 +268,6 @@ class Cpc(Module):
                 'gas',
                 get_buffered_gas_estimate(self.web3, transaction),
             )
-
         return self.web3.manager.request_blocking(
             "eth_sendTransaction",
             [transaction],

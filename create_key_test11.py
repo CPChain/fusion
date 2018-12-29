@@ -7,7 +7,7 @@ from cpc_fusion import Web3
 # cf. https://web3py.readthedocs.io/en/stable/middleware.html#geth-style-proof-of-authority
 from cpc_fusion.middleware import geth_poa_middleware
 from cpc_fusion.cpc_keyfile import decode_keyfile_json
-web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
+web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
 def main():
     from eth_account import Account
@@ -31,42 +31,37 @@ def main():
     #  'version': 3}
 
 
-
-
-
-
-
-    acct = Account.create('KEYSMASH FJAFJKLDSKF7JKFDJ 1530')
-    print(acct.address)
+    # acct = Account.create('KEYSMASH FJAFJKLDSKF7JKFDJ 1530')
+    # print(acct.address)
     # '0x5ce9454909639D2D17A3F753ce7d93fa0b9aB12E'
     # acct.privateKey
     # b"\\xb2\\}\\xb3\\x1f\\xee\\xd9\\x12''\\xbf\\t9\\xdcv\\x9a\\x96VK-\\xe4\\xc4rm\\x03[6\\xec\\xf1\\xe5\\xb3d"
 
     # print("http://127.0.0.1:8545")
-    # print(web3.cpc.blockNumber)
+    # print(web3.eth.blockNumber)
     # # inject the poa compatibility middleware to the innermost layer
     # web3.middleware_stack.inject(geth_poa_middleware, layer=0)
     #
-    # with open('./key1') as keyfile:
-    #     encrypted_key = keyfile.read()
-    # private_key_for_senders_account1 = web3.cpc.account.create_keyfile_json(encrypted_key, 'password')
-    # print( private_key_for_senders_account1)
-    #
-    # print("================================encrypted_key======================\n")
-    # print(encrypted_key)
-    # jjj = json.loads(encrypted_key)
-    # private_key_for_senders_account = decode_keyfile_json(jjj, 'password')
-    #
+    with open('./key1') as keyfile:
+        encrypted_key = keyfile.read()
+    private_key_for_senders_account1 = web3.eth.account.create_keyfile_json(encrypted_key, 'password')
+    print( private_key_for_senders_account1)
+
+    print("================================encrypted_key======================\n")
+    print(encrypted_key)
+    jjj = json.loads(encrypted_key)
+    private_key_for_senders_account = decode_keyfile_json(jjj, 'password')
+
     #
     print("private_key_for_senders_account:")
     # print(private_key_for_senders_account)
-    nonce = web3.cpc.getTransactionCount(web3.cpc.coinbase)
+    nonce = web3.eth.getTransactionCount(web3.eth.coinbase)
     addr = web3.toChecksumAddress('0xc05302acebd0730e3a18a058d7d1cb1204c4a092')
     print(nonce)
     print(nonce)
-    signed_txn = web3.cpc.account.signTransaction(dict(
+    signed_txn = web3.eth.account.signTransaction(dict(
             nonce=nonce,
-            gasPrice=web3.cpc.gasPrice,
+            gasPrice=web3.eth.gasPrice,
             gas=100000,
             to=addr,
             value=12345,
@@ -76,7 +71,7 @@ def main():
     )
     print(signed_txn)
 
-    web3.cpc.sendRawTransaction(signed_txn.rawTransaction)
+    web3.eth.sendRawTransaction(signed_txn.rawTransaction)
 
 
 if __name__ == '__main__':

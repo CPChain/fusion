@@ -58,7 +58,7 @@ def encode_transaction(unsigned_transaction, vrs):
     print('signed_transaction.gasPrice',signed_transaction.gasPrice)
     print('signed_transaction.gas',signed_transaction.gas)
     print('signed_transaction.value',signed_transaction.value)
-    print('r:{},  s{},   v{}'.format(signed_transaction.r,signed_transaction.s,signed_transaction.v))
+    print('r:{},\n s:{}, \n  v:{}'.format(signed_transaction.r,signed_transaction.s,signed_transaction.v))
     print('data',signed_transaction.data)
     print(rlp.encode(signed_transaction).hex())
     return rlp.encode(signed_transaction)
@@ -88,7 +88,6 @@ def is_none(val):
 
 
 TRANSACTION_DEFAULTS = {
-    'from': b'',
     'to': b'',
     'value': 0,
     'data': b'',
@@ -101,11 +100,6 @@ TRANSACTION_FORMATTERS = {
     'gasPrice': hexstr_if_str(to_int),
     'gas': hexstr_if_str(to_int),
     'to': apply_one_of_formatters((
-        (is_string, hexstr_if_str(to_bytes)),
-        (is_bytes, identity),
-        (is_none, lambda val: b''),
-    )),
-    'from':apply_one_of_formatters((
         (is_string, hexstr_if_str(to_bytes)),
         (is_bytes, identity),
         (is_none, lambda val: b''),
@@ -124,7 +118,6 @@ TRANSACTION_VALID_VALUES = {
     'gasPrice': is_int_or_prefixed_hexstr,
     'gas': is_int_or_prefixed_hexstr,
     'to': is_empty_or_checksum_address,
-    'from':is_empty_or_checksum_address,
     'value': is_int_or_prefixed_hexstr,
     'data': lambda val: isinstance(val, (int, str, bytes, bytearray)),
     'extra':lambda val: isinstance(val, (int, str, bytes, bytearray)),
@@ -141,7 +134,6 @@ ALLOWED_TRANSACTION_KEYS = {
     'data',
     'chainId',  # set chainId to None if you want a transaction that can be replayed across networks
     'extra',
-    'from'
 }
 
 REQUIRED_TRANSACITON_KEYS = ALLOWED_TRANSACTION_KEYS.difference(TRANSACTION_DEFAULTS.keys())

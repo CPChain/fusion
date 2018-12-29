@@ -30,6 +30,7 @@ def sign_transaction_dict(eth_key, transaction_dict):
     else:
         chain_id = unsigned_transaction.v
 
+    print('chainId:',chain_id)
     # sign with private key
     print("sign with private key")
     (v, r, s) = sign_transaction_hash(eth_key, transaction_hash, chain_id)
@@ -69,6 +70,7 @@ def hash_of_signed_transaction(txn_obj):
     :return: the hash of the provided transaction, to be signed
     '''
     (chain_id, _v) = extract_chain_id(txn_obj.v)
+    print('_v:',_v)
     unsigned_parts = strip_signature(txn_obj)
     if chain_id is None:
         signable_transaction = UnsignedTransaction(*unsigned_parts)
@@ -115,6 +117,8 @@ def to_eth_v(v_raw, chain_id=None):
         v = v_raw + V_OFFSET
     else:
         v = v_raw + CHAIN_ID_OFFSET + 2 * chain_id
+    # v = V_OFFSET
+    print("v is ",v)
     return v
 
 
