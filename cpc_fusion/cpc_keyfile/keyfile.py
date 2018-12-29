@@ -174,7 +174,7 @@ def _decode_keyfile_json_v3(keyfile_json, password):
     cipherparams = crypto['cipherparams']
     iv = big_endian_to_int(decode_hex(cipherparams['iv']))
 
-    private_key = decrypt_aes_ctr(ciphertext, encrypt_key, iv)
+    private_key = decrypt_aes_ctr(decode_hex(crypto['ciphertext']), encrypt_key, iv)
 
     return private_key
 

@@ -11,7 +11,7 @@ from cytoolz import (
 from eth_rlp import (
     HashableRLP,
 )
-from eth_utils.curried import (
+from ...cpc_utils.curried import (
     apply_formatters_to_dict,
     apply_one_of_formatters,
     hexstr_if_str,
@@ -41,8 +41,10 @@ def serializable_unsigned_transaction_from_dict(transaction_dict):
         apply_formatters_to_dict(TRANSACTION_FORMATTERS),
     )
     if 'v' in filled_transaction:
+        print("'v' in filled_transaction")
         serializer = Transaction
     else:
+        print("'v' not in filled_transaction")
         serializer = UnsignedTransaction
     return serializer.from_dict(filled_transaction)
 
@@ -51,7 +53,16 @@ def encode_transaction(unsigned_transaction, vrs):
     (v, r, s) = vrs
     chain_naive_transaction = dissoc(unsigned_transaction.as_dict(), 'v', 'r', 's')
     signed_transaction = Transaction(v=v, r=r, s=s, **chain_naive_transaction)
+    print("signed_transaction.nonce",signed_transaction.nonce)
+    print('signed_transaction.to:',signed_transaction.to.hex())
+    print('signed_transaction.gasPrice',signed_transaction.gasPrice)
+    print('signed_transaction.gas',signed_transaction.gas)
+    print('signed_transaction.value',signed_transaction.value)
+    print('r:{},  s{},   v{}'.format(signed_transaction.r,signed_transaction.s,signed_transaction.v))
+    print('data',signed_transaction.data)
+    print(rlp.encode(signed_transaction).hex())
     return rlp.encode(signed_transaction)
+
 
 
 def is_int_or_prefixed_hexstr(val):
@@ -77,9 +88,11 @@ def is_none(val):
 
 
 TRANSACTION_DEFAULTS = {
+    'from': b'',
     'to': b'',
     'value': 0,
     'data': b'',
+    'extra': b'',
     'chainId': None,
 }
 
@@ -92,24 +105,34 @@ TRANSACTION_FORMATTERS = {
         (is_bytes, identity),
         (is_none, lambda val: b''),
     )),
+    'from':apply_one_of_formatters((
+        (is_string, hexstr_if_str(to_bytes)),
+        (is_bytes, identity),
+        (is_none, lambda val: b''),
+    )),
     'value': hexstr_if_str(to_int),
     'data': hexstr_if_str(to_bytes),
+    'extra':hexstr_if_str(to_bytes),
     'v': hexstr_if_str(to_int),
     'r': hexstr_if_str(to_int),
     's': hexstr_if_str(to_int),
 }
 
 TRANSACTION_VALID_VALUES = {
+    'type': is_integer,
     'nonce': is_int_or_prefixed_hexstr,
     'gasPrice': is_int_or_prefixed_hexstr,
     'gas': is_int_or_prefixed_hexstr,
     'to': is_empty_or_checksum_address,
+    'from':is_empty_or_checksum_address,
     'value': is_int_or_prefixed_hexstr,
     'data': lambda val: isinstance(val, (int, str, bytes, bytearray)),
+    'extra':lambda val: isinstance(val, (int, str, bytes, bytearray)),
     'chainId': lambda val: val is None or is_int_or_prefixed_hexstr(val),
 }
 
 ALLOWED_TRANSACTION_KEYS = {
+    'type',
     'nonce',
     'gasPrice',
     'gas',
@@ -117,6 +140,8 @@ ALLOWED_TRANSACTION_KEYS = {
     'value',
     'data',
     'chainId',  # set chainId to None if you want a transaction that can be replayed across networks
+    'extra',
+    'from'
 }
 
 REQUIRED_TRANSACITON_KEYS = ALLOWED_TRANSACTION_KEYS.difference(TRANSACTION_DEFAULTS.keys())
@@ -155,12 +180,14 @@ def fill_transaction_defaults(transaction):
 
 
 UNSIGNED_TRANSACTION_FIELDS = (
+    ('type',big_endian_int),
     ('nonce', big_endian_int),
     ('gasPrice', big_endian_int),
     ('gas', big_endian_int),
     ('to', Binary.fixed_length(20, allow_empty=True)),
     ('value', big_endian_int),
     ('data', binary),
+    ('extra', binary),
 )
 
 

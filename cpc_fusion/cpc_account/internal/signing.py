@@ -6,7 +6,7 @@ from eth_utils import (
     to_int,
 )
 
-from eth_account.internal.transactions import (
+from .transactions import (
     ChainAwareUnsignedTransaction,
     UnsignedTransaction,
     encode_transaction,
@@ -31,11 +31,15 @@ def sign_transaction_dict(eth_key, transaction_dict):
         chain_id = unsigned_transaction.v
 
     # sign with private key
+    print("sign with private key")
     (v, r, s) = sign_transaction_hash(eth_key, transaction_hash, chain_id)
 
     # serialize transaction with rlp
     encoded_transaction = encode_transaction(unsigned_transaction, vrs=(v, r, s))
-
+    print('unsigned tx:')
+    print(unsigned_transaction)
+    print('111111111111')
+    print(encoded_transaction.hex())
     return (v, r, s, encoded_transaction)
 
 

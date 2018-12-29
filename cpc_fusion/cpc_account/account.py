@@ -11,11 +11,11 @@ from ..cpc_keyfile import (
     create_keyfile_json,
     decode_keyfile_json,
 )
-from eth_keys import (
+from ..cpc_keys import (
     KeyAPI,
     keys,
 )
-from eth_keys.exceptions import (
+from ..cpc_keys.exceptions import (
     ValidationError,
 )
 from eth_utils.curried import (
@@ -34,14 +34,14 @@ from hexbytes import (
 from eth_account.datastructures import (
     AttributeDict,
 )
-from eth_account.internal.signing import (
+from ..cpc_account.internal.signing import (
     hash_of_signed_transaction,
     sign_message_hash,
     sign_transaction_dict,
     to_standard_signature_bytes,
     to_standard_v,
 )
-from eth_account.internal.transactions import (
+from ..cpc_account.internal.transactions import (
     Transaction,
     vrs_from,
 )
@@ -417,6 +417,7 @@ class Account(object):
         # allow from field, *only* if it matches the private key
         if 'from' in transaction_dict:
             if transaction_dict['from'] == account.address:
+                print('tx from:',transaction_dict['from'])
                 sanitized_transaction = dissoc(transaction_dict, 'from')
             else:
                 raise TypeError("from field must match key's %s, but it was %s" % (
