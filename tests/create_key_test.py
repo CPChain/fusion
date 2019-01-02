@@ -8,7 +8,7 @@ from cpc_fusion import Web3
 from cpc_fusion.middleware import geth_poa_middleware
 from cpc_fusion.cpc_keyfile import decode_keyfile_json
 
-def tx1():
+def test_sendTransaction_by_personal():
     web3 = Web3(Web3.HTTPProvider('http://192.168.50.251:8501'))
     print("http://192.168.50.251:8545")
     print(web3.cpc.blockNumber)
@@ -26,7 +26,7 @@ def tx1():
     print('from', web3.cpc.getBalance(web3.toChecksumAddress('e94b7b6c5a0e526a4d97f9768ad6097bde25c62a')))
 
 
-def tx2():
+def test_local_sendRawTransaction():
     web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
     web3.middleware_stack.inject(geth_poa_middleware, layer=0)
     with open('./keys/key1') as keyfile:
@@ -70,8 +70,8 @@ def tx2():
     print(web3.cpc.sendRawTransaction(signed_txn.rawTransaction))
 
 def main():
-    tx1()
-    tx2()
+    test_sendTransaction_by_personal()
+    test_local_sendRawTransaction()
 
 if __name__ == '__main__':
     main()

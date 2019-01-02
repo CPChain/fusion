@@ -9,7 +9,7 @@ from cpc_fusion.middleware import geth_poa_middleware
 from cpc_fusion.cpc_keyfile import decode_keyfile_json
 web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
-def main():
+def test_encrypted_keyfile():
     from eth_account import Account
     encrypted = Account.encrypt(
         0xb25c7db31feed9122727bf0939dc769a96564b2de4c4726d035b36ecf1e5b364,
@@ -75,4 +75,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    test_encrypted_keyfile()
