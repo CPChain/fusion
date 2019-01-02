@@ -53,14 +53,14 @@ def encode_transaction(unsigned_transaction, vrs):
     (v, r, s) = vrs
     chain_naive_transaction = dissoc(unsigned_transaction.as_dict(), 'v', 'r', 's')
     signed_transaction = Transaction(v=v, r=r, s=s, **chain_naive_transaction)
-    print("signed_transaction.nonce",signed_transaction.nonce)
-    print('signed_transaction.to:',signed_transaction.to.hex())
-    print('signed_transaction.gasPrice',signed_transaction.gasPrice)
-    print('signed_transaction.gas',signed_transaction.gas)
-    print('signed_transaction.value',signed_transaction.value)
-    print('r:{},\n s:{}, \n  v:{}'.format(signed_transaction.r,signed_transaction.s,signed_transaction.v))
-    print('data',signed_transaction.data)
-    print(rlp.encode(signed_transaction).hex())
+    # print("signed_transaction.nonce",signed_transaction.nonce)
+    # print('signed_transaction.to:',signed_transaction.to.hex())
+    # print('signed_transaction.gasPrice',signed_transaction.gasPrice)
+    # print('signed_transaction.gas',signed_transaction.gas)
+    # print('signed_transaction.value',signed_transaction.value)
+    # print('r:{},\n s:{}, \n  v:{}'.format(signed_transaction.r,signed_transaction.s,signed_transaction.v))
+    # print('data',signed_transaction.data)
+    # print(rlp.encode(signed_transaction).hex())
     return rlp.encode(signed_transaction)
 
 
