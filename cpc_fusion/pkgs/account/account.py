@@ -7,15 +7,15 @@ import os
 from cytoolz import (
     dissoc,
 )
-from ..cpc_keyfile import (
+from ..keyfile import (
     create_keyfile_json,
     decode_keyfile_json,
 )
-from ..cpc_keys import (
+from ..keys import (
     KeyAPI,
     keys,
 )
-from ..cpc_keys.exceptions import (
+from ..keys.exceptions import (
     ValidationError,
 )
 from eth_utils.curried import (
@@ -34,14 +34,14 @@ from hexbytes import (
 from eth_account.datastructures import (
     AttributeDict,
 )
-from ..cpc_account.internal.signing import (
+from ..account.internal.signing import (
     hash_of_signed_transaction,
     sign_message_hash,
     sign_transaction_dict,
     to_standard_signature_bytes,
     to_standard_v,
 )
-from ..cpc_account.internal.transactions import (
+from ..account.internal.transactions import (
     Transaction,
     vrs_from,
 )

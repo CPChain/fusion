@@ -25,11 +25,11 @@ from eth_keys.utils.padding import (
     pad32,
 )
 
-from ..cpc_keys.exceptions import (
+from ..keys.exceptions import (
     BadSignature,
     ValidationError,
 )
-from ..cpc_keys.validation import (
+from ..keys.validation import (
     validate_gte,
     validate_integer,
     validate_lt_secpk1n,

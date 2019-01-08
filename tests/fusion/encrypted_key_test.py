@@ -5,8 +5,7 @@ from cpc_fusion import Web3
 # from web3 import Web3
 
 # cf. https://web3py.readthedocs.io/en/stable/middleware.html#geth-style-proof-of-authority
-from cpc_fusion.middleware import geth_poa_middleware
-from cpc_fusion.cpc_keyfile import decode_keyfile_json
+from cpc_fusion.pkgs.keyfile import decode_keyfile_json
 web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
 def test_encrypted_keyfile():

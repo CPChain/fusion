@@ -1,4 +1,4 @@
-from .cpc_account import (
+from cpc_fusion.pkgs.account import (
     Account,
 )
 from eth_utils import (

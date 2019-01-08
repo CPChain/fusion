@@ -2,11 +2,11 @@
 import json
 
 from cpc_fusion import Web3
-# from web3 import Web3
 
 # cf. https://web3py.readthedocs.io/en/stable/middleware.html#geth-style-proof-of-authority
 from cpc_fusion.middleware import geth_poa_middleware
-from cpc_fusion.cpc_keyfile import decode_keyfile_json
+from cpc_fusion.pkgs.keyfile import decode_keyfile_json
+
 
 def test_sendTransaction_by_personal():
     web3 = Web3(Web3.HTTPProvider('http://192.168.50.251:8501'))
@@ -18,9 +18,9 @@ def test_sendTransaction_by_personal():
     print('from', web3.cpc.getBalance(web3.toChecksumAddress('e94b7b6c5a0e526a4d97f9768ad6097bde25c62a')))
 
     print(web3.personal.sendTransaction({'to': web3.toChecksumAddress('c05302acebd0730e3a18a058d7d1cb1204c4a092'),
-                                          'from': web3.toChecksumAddress('e94b7b6c5a0e526a4d97f9768ad6097bde25c62a'),
-                                          'value': 321},
-                                         'password').hex())
+                                         'from': web3.toChecksumAddress('e94b7b6c5a0e526a4d97f9768ad6097bde25c62a'),
+                                         'value': 321},
+                                        'password').hex())
     print('to  ', web3.cpc.getBalance(web3.toChecksumAddress('c05302acebd0730e3a18a058d7d1cb1204c4a092')))
 
     print('from', web3.cpc.getBalance(web3.toChecksumAddress('e94b7b6c5a0e526a4d97f9768ad6097bde25c62a')))
@@ -29,7 +29,7 @@ def test_sendTransaction_by_personal():
 def test_local_sendRawTransaction():
     web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
     web3.middleware_stack.inject(geth_poa_middleware, layer=0)
-    with open('./keys/key1') as keyfile:
+    with open('/home/cpc/PycharmProjects/fusion/tests/fusion/key1') as keyfile:
         encrypted_key = keyfile.read()
     # print(web3.cpc.getBalance(web3.cpc.accounts))
     print(web3.cpc.accounts)
@@ -55,13 +55,13 @@ def test_local_sendRawTransaction():
         to=addr,
         value=123,
         data=b'',
-        extra=b'',
+        # extra=b'',
         chainId=41,
     )
-    ddd['from'] =  fromA
+    ddd['from'] = fromA
     signed_txn = web3.cpc.account.signTransaction(ddd,
-                 private_key_for_senders_account,
-    )
+                                                  private_key_for_senders_account,
+                                                  )
     print("signed_txn:")
     print(signed_txn)
 
@@ -69,9 +69,11 @@ def test_local_sendRawTransaction():
     print(web3.toHex(signed_txn.rawTransaction))
     print(web3.cpc.sendRawTransaction(signed_txn.rawTransaction))
 
+
 def main():
-    test_sendTransaction_by_personal()
+    # test_sendTransaction_by_personal()
     test_local_sendRawTransaction()
+
 
 if __name__ == '__main__':
     main()
