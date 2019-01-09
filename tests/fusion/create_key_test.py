@@ -9,11 +9,11 @@ from cpc_fusion.pkgs.keyfile import decode_keyfile_json
 
 
 def test_sendTransaction_by_personal():
-    web3 = Web3(Web3.HTTPProvider('http://192.168.50.251:8501'))
-    print("http://192.168.50.251:8545")
+    web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
+    print("http://127.0.0.1:8501")
     print(web3.cpc.blockNumber)
-    # inject the poa compatibility middleware to the innermost layer
-    web3.middleware_stack.inject(geth_poa_middleware, layer=0)
+    # # inject the poa compatibility middleware to the innermost layer
+    # web3.middleware_stack.inject(geth_poa_middleware, layer=0)
     print('to  ', web3.cpc.getBalance(web3.toChecksumAddress('c05302acebd0730e3a18a058d7d1cb1204c4a092')))
     print('from', web3.cpc.getBalance(web3.toChecksumAddress('e94b7b6c5a0e526a4d97f9768ad6097bde25c62a')))
 
@@ -28,8 +28,8 @@ def test_sendTransaction_by_personal():
 
 def test_local_sendRawTransaction():
     web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
-    web3.middleware_stack.inject(geth_poa_middleware, layer=0)
-    with open('/home/cpc/PycharmProjects/fusion/tests/fusion/key1') as keyfile:
+    # web3.middleware_stack.inject(geth_poa_middleware, layer=0)
+    with open('tests/fusion/key1') as keyfile:
         encrypted_key = keyfile.read()
     # print(web3.cpc.getBalance(web3.cpc.accounts))
     print(web3.cpc.accounts)
@@ -55,7 +55,6 @@ def test_local_sendRawTransaction():
         to=addr,
         value=123,
         data=b'',
-        # extra=b'',
         chainId=41,
     )
     ddd['from'] = fromA

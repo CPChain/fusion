@@ -91,7 +91,6 @@ TRANSACTION_DEFAULTS = {
     'to': b'',
     'value': 0,
     'data': b'',
-    'extra': b'',
     'chainId': None,
 }
 
@@ -106,7 +105,6 @@ TRANSACTION_FORMATTERS = {
     )),
     'value': hexstr_if_str(to_int),
     'data': hexstr_if_str(to_bytes),
-    'extra':hexstr_if_str(to_bytes),
     'v': hexstr_if_str(to_int),
     'r': hexstr_if_str(to_int),
     's': hexstr_if_str(to_int),
@@ -120,7 +118,6 @@ TRANSACTION_VALID_VALUES = {
     'to': is_empty_or_checksum_address,
     'value': is_int_or_prefixed_hexstr,
     'data': lambda val: isinstance(val, (int, str, bytes, bytearray)),
-    'extra':lambda val: isinstance(val, (int, str, bytes, bytearray)),
     'chainId': lambda val: val is None or is_int_or_prefixed_hexstr(val),
 }
 
@@ -133,7 +130,6 @@ ALLOWED_TRANSACTION_KEYS = {
     'value',
     'data',
     'chainId',  # set chainId to None if you want a transaction that can be replayed across networks
-    'extra',
 }
 
 REQUIRED_TRANSACITON_KEYS = ALLOWED_TRANSACTION_KEYS.difference(TRANSACTION_DEFAULTS.keys())
@@ -179,7 +175,6 @@ UNSIGNED_TRANSACTION_FIELDS = (
     ('to', Binary.fixed_length(20, allow_empty=True)),
     ('value', big_endian_int),
     ('data', binary),
-    ('extra', binary),
 )
 
 
