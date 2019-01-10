@@ -41,7 +41,7 @@ from cpc_fusion.eth import (
     Eth,
 )
 from cpc_fusion.cpc import (
-    Cpc,
+    CPC,
 )
 from cpc_fusion.iban import (
     Iban,
@@ -98,7 +98,7 @@ def get_default_modules():
         "admin": Admin,
         "parity": Parity,
         "testing": Testing,
-        "cpc": Cpc,
+        "cpc": CPC,
     }
 
 
