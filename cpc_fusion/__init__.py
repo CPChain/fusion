@@ -14,7 +14,7 @@ if sys.version_info < (3, 5):
         "Python 3.5 or above is required. "
         "Note that support for Python 3.5 will be remove in web3.py v5")
 
-from .cpc_account import Account  # noqa: E402
+from cpc_fusion.pkgs.account import Account  # noqa: E402
 from cpc_fusion.main import Web3  # noqa: E402
 from cpc_fusion.providers.rpc import (  # noqa: E402
     HTTPProvider,

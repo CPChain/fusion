@@ -1,6 +1,6 @@
 from typing import (Any, Union, Type)  # noqa: F401
 
-from ..cpc_keys.datatypes import (
+from ..keys.datatypes import (
     LazyBackend,
     PublicKey,
     PrivateKey,

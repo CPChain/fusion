@@ -11,7 +11,7 @@ from cytoolz import (
 from eth_rlp import (
     HashableRLP,
 )
-from ...cpc_utils.curried import (
+from ...utils.curried import (
     apply_formatters_to_dict,
     apply_one_of_formatters,
     hexstr_if_str,
@@ -53,14 +53,6 @@ def encode_transaction(unsigned_transaction, vrs):
     (v, r, s) = vrs
     chain_naive_transaction = dissoc(unsigned_transaction.as_dict(), 'v', 'r', 's')
     signed_transaction = Transaction(v=v, r=r, s=s, **chain_naive_transaction)
-    # print("signed_transaction.nonce",signed_transaction.nonce)
-    # print('signed_transaction.to:',signed_transaction.to.hex())
-    # print('signed_transaction.gasPrice',signed_transaction.gasPrice)
-    # print('signed_transaction.gas',signed_transaction.gas)
-    # print('signed_transaction.value',signed_transaction.value)
-    # print('r:{},\n s:{}, \n  v:{}'.format(signed_transaction.r,signed_transaction.s,signed_transaction.v))
-    # print('data',signed_transaction.data)
-    # print(rlp.encode(signed_transaction).hex())
     return rlp.encode(signed_transaction)
 
 
@@ -91,7 +83,6 @@ TRANSACTION_DEFAULTS = {
     'to': b'',
     'value': 0,
     'data': b'',
-    'extra': b'',
     'chainId': None,
 }
 
@@ -106,7 +97,6 @@ TRANSACTION_FORMATTERS = {
     )),
     'value': hexstr_if_str(to_int),
     'data': hexstr_if_str(to_bytes),
-    'extra':hexstr_if_str(to_bytes),
     'v': hexstr_if_str(to_int),
     'r': hexstr_if_str(to_int),
     's': hexstr_if_str(to_int),
@@ -120,7 +110,6 @@ TRANSACTION_VALID_VALUES = {
     'to': is_empty_or_checksum_address,
     'value': is_int_or_prefixed_hexstr,
     'data': lambda val: isinstance(val, (int, str, bytes, bytearray)),
-    'extra':lambda val: isinstance(val, (int, str, bytes, bytearray)),
     'chainId': lambda val: val is None or is_int_or_prefixed_hexstr(val),
 }
 
@@ -133,7 +122,6 @@ ALLOWED_TRANSACTION_KEYS = {
     'value',
     'data',
     'chainId',  # set chainId to None if you want a transaction that can be replayed across networks
-    'extra',
 }
 
 REQUIRED_TRANSACITON_KEYS = ALLOWED_TRANSACTION_KEYS.difference(TRANSACTION_DEFAULTS.keys())
@@ -179,7 +167,6 @@ UNSIGNED_TRANSACTION_FIELDS = (
     ('to', Binary.fixed_length(20, allow_empty=True)),
     ('value', big_endian_int),
     ('data', binary),
-    ('extra', binary),
 )
 
 
