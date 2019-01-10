@@ -56,7 +56,7 @@ from cpc_fusion.module import (
 )
 
 
-class Cpc(Module):
+class CPC(Module):
     account = Account()
     defaultAccount = empty
     defaultBlock = "latest"
