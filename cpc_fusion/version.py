@@ -20,3 +20,7 @@ class Version(Module):
     @property
     def ethereum(self):
         return self.web3.manager.request_blocking("eth_protocolVersion", [])
+
+    @property
+    def cpchain(self):
+        return self.web3.manager.request_blocking("eth_protocolVersion", [])
