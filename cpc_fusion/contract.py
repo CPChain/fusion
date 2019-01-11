@@ -388,8 +388,8 @@ class Contract:
 
         if self.address:
             estimate_transaction.setdefault('to', self.address)
-        if self.web3.eth.defaultAccount is not empty:
-            estimate_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            estimate_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         if 'to' not in estimate_transaction:
             if isinstance(self, type):
@@ -456,8 +456,8 @@ class Contract:
 
         if self.address:
             call_transaction.setdefault('to', self.address)
-        if self.web3.eth.defaultAccount is not empty:
-            call_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            call_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         if 'to' not in call_transaction:
             if isinstance(self, type):
@@ -541,8 +541,8 @@ class Contract:
 
         if self.address is not None:
             transact_transaction.setdefault('to', self.address)
-        if self.web3.eth.defaultAccount is not empty:
-            transact_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            transact_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         if 'to' not in transact_transaction:
             if isinstance(self, type):
@@ -801,8 +801,8 @@ class ContractConstructor:
             self.check_forbidden_keys_in_transaction(estimate_gas_transaction,
                                                      ["data", "to"])
 
-        if self.web3.eth.defaultAccount is not empty:
-            estimate_gas_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            estimate_gas_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         estimate_gas_transaction['data'] = self.data_in_transaction
 
@@ -817,8 +817,8 @@ class ContractConstructor:
             self.check_forbidden_keys_in_transaction(transact_transaction,
                                                      ["data", "to"])
 
-        if self.web3.eth.defaultAccount is not empty:
-            transact_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            transact_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         transact_transaction['data'] = self.data_in_transaction
 
@@ -838,8 +838,8 @@ class ContractConstructor:
             self.check_forbidden_keys_in_transaction(built_transaction,
                                                      ["data", "to"])
 
-        if self.web3.eth.defaultAccount is not empty:
-            built_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            built_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         built_transaction['data'] = self.data_in_transaction
         built_transaction['to'] = b''
@@ -1061,8 +1061,8 @@ class ContractFunction:
 
         if self.address:
             call_transaction.setdefault('to', self.address)
-        if self.web3.eth.defaultAccount is not empty:
-            call_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            call_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         if 'to' not in call_transaction:
             if isinstance(self, type):
@@ -1102,8 +1102,8 @@ class ContractFunction:
 
         if self.address is not None:
             transact_transaction.setdefault('to', self.address)
-        if self.web3.eth.defaultAccount is not empty:
-            transact_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            transact_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         if 'to' not in transact_transaction:
             if isinstance(self, type):
@@ -1140,8 +1140,8 @@ class ContractFunction:
 
         if self.address:
             estimate_gas_transaction.setdefault('to', self.address)
-        if self.web3.eth.defaultAccount is not empty:
-            estimate_gas_transaction.setdefault('from', self.web3.eth.defaultAccount)
+        if self.web3.cpc.defaultAccount is not empty:
+            estimate_gas_transaction.setdefault('from', self.web3.cpc.defaultAccount)
 
         if 'to' not in estimate_gas_transaction:
             if isinstance(self, type):
