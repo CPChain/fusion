@@ -387,9 +387,6 @@ class CPC(Module):
     def getCompilers(self):
         return self.web3.manager.request_blocking("eth_getCompilers", [])
 
-    def getWork(self):
-        return self.web3.manager.request_blocking("eth_getWork", [])
-
     def generateGasPrice(self, transaction_params=None):
         if self.gasPriceStrategy:
             return self.gasPriceStrategy(self.web3, transaction_params)
