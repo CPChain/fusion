@@ -19,7 +19,8 @@ def test_local_sendRawTransaction():
     print('coinbase:', web3.cpc.coinbase)
     from_addr = web3.toChecksumAddress('0xe94b7b6c5a0e526a4d97f9768ad6097bde25c62a')
     nonce = web3.cpc.getTransactionCount(from_addr)
-    to_addr = web3.toChecksumAddress('0xc05302acebd0730e3a18a058d7d1cb1204c4a092')
+    # to_addr = web3.toChecksumAddress('0xc05302acebd0730e3a18a058d7d1cb1204c4a092')
+    to_addr = web3.toChecksumAddress(web3.cpc.accounts[0])
 
     print('nonce:')
     print(nonce)
@@ -44,3 +45,6 @@ def test_local_sendRawTransaction():
     print("sendRawTransaction:")
     print(web3.toHex(signed_txn.rawTransaction))
     print(web3.cpc.sendRawTransaction(signed_txn.rawTransaction))
+
+
+test_local_sendRawTransaction()

@@ -161,7 +161,7 @@ def _decode_keyfile_json_v3(keyfile_json, password):
         raise TypeError("Unsupported key derivation function: {0}".format(kdf))
 
     # Validate that the derived key matchs the provided MAC
-    ciphertext = decode_hex(crypto['ciphertext']) + decode_hex(crypto['rsaciphertext'])
+    ciphertext = decode_hex(crypto['ciphertext'])
     mac = keccak(derived_key[16:32] + ciphertext)
 
     expected_mac = decode_hex(crypto['mac'])
