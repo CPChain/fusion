@@ -4,7 +4,7 @@ from cpc_fusion import Web3
 
 
 def test_local_sendRawTransaction():
-    web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8512'))
+    web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
     # web3.middleware_stack.inject(geth_poa_middleware, layer=0)
     with open('./key1') as keyfile:
         encrypted_key = keyfile.read()
@@ -44,3 +44,6 @@ def test_local_sendRawTransaction():
     print("sendRawTransaction:")
     print(web3.toHex(signed_txn.rawTransaction))
     print(web3.cpc.sendRawTransaction(signed_txn.rawTransaction))
+
+
+test_local_sendRawTransaction()
