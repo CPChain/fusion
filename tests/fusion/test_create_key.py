@@ -4,7 +4,7 @@ from cpc_fusion import Web3
 
 
 def test_local_sendRawTransaction():
-    web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8501'))
+    web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8512'))
     # web3.middleware_stack.inject(geth_poa_middleware, layer=0)
     with open('./key1') as keyfile:
         encrypted_key = keyfile.read()
@@ -19,7 +19,8 @@ def test_local_sendRawTransaction():
     print('coinbase:', web3.cpc.coinbase)
     from_addr = web3.toChecksumAddress('0xe94b7b6c5a0e526a4d97f9768ad6097bde25c62a')
     nonce = web3.cpc.getTransactionCount(from_addr)
-    to_addr = web3.toChecksumAddress('0xc05302acebd0730e3a18a058d7d1cb1204c4a092')
+    # to_addr = web3.toChecksumAddress('0xc05302acebd0730e3a18a058d7d1cb1204c4a092')
+    to_addr = web3.toChecksumAddress(web3.cpc.accounts[0])
 
     print('nonce:')
     print(nonce)
