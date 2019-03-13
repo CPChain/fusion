@@ -56,6 +56,11 @@ from cpc_fusion.module import (
 )
 
 
+
+def Web3():
+    from cpc_fusion import Web3
+    return Web3
+
 class CPC(Module):
     account = Account()
     defaultAccount = empty
@@ -226,6 +231,15 @@ class CPC(Module):
         return self.web3.manager.request_blocking(
             "eth_getBlockGenerationInfo",
             [],
+        )
+
+
+    def getProposerByBlock(self, block):
+        if not isinstance(block, str):
+            block = self.web3.toHex(block)
+        return self.web3.manager.request_blocking(
+            "eth_getProposerByBlock",
+            [block],
         )
 
     def getTransactionReceipt(self, transaction_hash):
