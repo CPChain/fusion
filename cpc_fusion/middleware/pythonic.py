@@ -126,6 +126,8 @@ TRANSACTION_FORMATTERS_WITH_CONTRACT = {
     'isCreator': bool,
     'code': HexBytes,
     'contractAddress': apply_formatter_if(is_address, to_checksum_address),
+    'status': to_integer_if_hex,
+    'gasUsed': to_integer_if_hex,
 }
 
 
