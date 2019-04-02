@@ -55,7 +55,6 @@ from cpc_fusion.module import (
     Module,
 )
 
-
 class CPC(Module):
     account = Account()
     defaultAccount = empty
@@ -187,6 +186,18 @@ class CPC(Module):
         return self.web3.manager.request_blocking(
             method,
             [block_identifier, transaction_index],
+        )
+    
+    def getAllTransactionsByBlock(self, block_number, frm=0, to=None):
+        """
+        `eth_getAllTransactionsByBlockNumberAndIndex`
+        """
+        method = 'eth_getAllTransactionsByBlockNumberAndIndex'
+        if not to:
+            to = self.getBlockTransactionCount(block_number)
+        return self.web3.manager.request_blocking(
+            method,
+            [block_number, frm, to],
         )
 
     def waitForTransactionReceipt(self, transaction_hash, timeout=120):

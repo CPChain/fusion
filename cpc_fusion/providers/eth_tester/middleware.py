@@ -180,6 +180,11 @@ ethereum_tester_middleware = construct_formatting_middleware(
             apply_formatter_if(is_not_named_block, to_integer_if_hex),
             to_integer_if_hex,
         ),
+        'eth_getAllTransactionsByBlockNumberAndIndex': apply_formatters_to_args(
+            apply_formatter_if(is_not_named_block, to_integer_if_hex),
+            to_integer_if_hex,
+            to_integer_if_hex,
+        ),
         'eth_getUncleByBlockNumberAndIndex': apply_formatters_to_args(
             apply_formatter_if(is_not_named_block, to_integer_if_hex),
             to_integer_if_hex,

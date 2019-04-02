@@ -549,6 +549,11 @@ class EthModuleTest:
         assert is_dict(transaction)
         assert transaction['hash'] == HexBytes(mined_txn_hash)
 
+    def test_eth_getAllTransactionsByBlockNumberAndIndex(self, web3, block_with_txn, mined_txn_hash):
+        transaction = web3.eth.getAllTransactionsByBlock(block_with_txn['number'], 0)
+        assert is_dict(transaction)
+        assert transaction['hash'] == HexBytes(mined_txn_hash)
+
     def test_eth_getTransactionReceipt_mined(self, web3, block_with_txn, mined_txn_hash):
         receipt = web3.eth.getTransactionReceipt(mined_txn_hash)
         assert is_dict(receipt)
