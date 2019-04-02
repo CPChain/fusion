@@ -105,9 +105,35 @@ TRANSACTION_FORMATTERS = {
     'standardV': apply_formatter_if(is_not_null, to_integer_if_hex),
 }
 
+TRANSACTION_FORMATTERS_WITH_CONTRACT = {
+    'blockHash': apply_formatter_if(is_not_null, to_hexbytes(32)),
+    'blockNumber': apply_formatter_if(is_not_null, to_integer_if_hex),
+    'transactionIndex': apply_formatter_if(is_not_null, to_integer_if_hex),
+    'nonce': to_integer_if_hex,
+    'gas': to_integer_if_hex,
+    'gasPrice': to_integer_if_hex,
+    'value': to_integer_if_hex,
+    'from': to_checksum_address,
+    'publicKey': apply_formatter_if(is_not_null, to_hexbytes(64)),
+    'r': to_hexbytes(32, variable_length=True),
+    'raw': HexBytes,
+    's': to_hexbytes(32, variable_length=True),
+    'to': apply_formatter_if(is_address, to_checksum_address),
+    'hash': to_hexbytes(32),
+    'v': apply_formatter_if(is_not_null, to_integer_if_hex),
+    'standardV': apply_formatter_if(is_not_null, to_integer_if_hex),
+    'creator': apply_formatter_if(is_address, to_checksum_address),
+    'isCreator': bool,
+    'code': HexBytes,
+    'contractAddress': apply_formatter_if(is_address, to_checksum_address),
+    'status': to_integer_if_hex,
+    'gasUsed': to_integer_if_hex,
+}
+
 
 transaction_formatter = apply_formatters_to_dict(TRANSACTION_FORMATTERS)
 
+multi_transaction_formatter = apply_formatter_to_array(apply_formatters_to_dict(TRANSACTION_FORMATTERS_WITH_CONTRACT))
 
 WHISPER_LOG_FORMATTERS = {
     'sig': to_hexbytes(130),
@@ -269,6 +295,11 @@ pythonic_middleware = construct_formatting_middleware(
             apply_formatter_at_index(block_number_formatter, 0),
             apply_formatter_at_index(integer_to_hex, 1),
         ),
+        'eth_getAllTransactionsByBlockNumberAndIndex': compose(
+            apply_formatter_at_index(block_number_formatter, 0),
+            apply_formatter_at_index(integer_to_hex, 1),
+            apply_formatter_at_index(integer_to_hex, 2),
+        ),
         'eth_getTransactionCount': apply_formatter_at_index(block_number_formatter, 1),
         'eth_getUncleCountByBlockNumber': apply_formatter_at_index(block_number_formatter, 0),
         'eth_getUncleByBlockNumberAndIndex': compose(
@@ -328,6 +359,10 @@ pythonic_middleware = construct_formatting_middleware(
         'eth_getTransactionByBlockNumberAndIndex': apply_formatter_if(
             is_not_null,
             transaction_formatter,
+        ),
+        'eth_getAllTransactionsByBlockNumberAndIndex': apply_formatter_if(
+            is_not_null,
+            multi_transaction_formatter,
         ),
         'eth_getTransactionByHash': apply_formatter_if(is_not_null, transaction_formatter),
         'eth_getTransactionCount': to_integer_if_hex,

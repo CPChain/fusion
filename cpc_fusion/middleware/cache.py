@@ -257,6 +257,7 @@ BLOCK_NUMBER_RPC_WHITELIST = {
     # 'eth_getTransactionByHash',
     # 'eth_getTransactionByBlockHashAndIndex',
     'eth_getTransactionByBlockNumberAndIndex',
+    'eth_getAllTransactionsByBlockNumberAndIndex',
     'eth_getTransactionReceipt',
     # 'eth_getUncleByBlockHashAndIndex',
     'eth_getUncleByBlockNumberAndIndex',
