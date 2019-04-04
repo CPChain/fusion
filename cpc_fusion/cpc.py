@@ -194,17 +194,25 @@ class CPC(Module):
             [block_identifier, transaction_index],
         )
     
-    def getAllTransactionsByBlock(self, block_number, frm=0, to=None):
+    def getAllTransactionsByBlock(self, block_number, frm=0, to=None, batch=10000):
         """
         `eth_getAllTransactionsByBlockNumberAndIndex`
         """
         method = 'eth_getAllTransactionsByBlockNumberAndIndex'
         if not to:
             to = self.getBlockTransactionCount(block_number)
-        return self.web3.manager.request_blocking(
-            method,
-            [block_number, frm, to],
-        )
+        results = []
+        for i in range(frm, to, batch):
+            right = i
+            left = i + batch - 1 if i + batch - 1 < to else to
+            batch_data = self.web3.manager.request_blocking(
+                method,
+                [block_number, right, left],
+            )
+            results += batch_data
+            if left >= to:
+                break
+        return results
 
     def waitForTransactionReceipt(self, transaction_hash, timeout=120):
         try:
