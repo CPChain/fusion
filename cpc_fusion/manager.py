@@ -19,6 +19,7 @@ from cpc_fusion.exceptions import (
     UnhandledRequest,
 )
 from cpc_fusion.middleware import (
+    geth_poa_middleware,
     abi_middleware,
     attrdict_middleware,
     gas_price_strategy_middleware,
@@ -44,6 +45,7 @@ class RequestManager:
             middlewares = self.default_middlewares(web3)
 
         self.middleware_stack = NamedElementOnion(middlewares)
+        self.middleware_stack.inject(geth_poa_middleware, layer=0)
         if providers is empty:
             self.providers = AutoProvider()
         else:
