@@ -56,7 +56,6 @@ from cpc_fusion.module import (
 )
 
 
-
 def Web3():
     from cpc_fusion import Web3
     return Web3
@@ -193,7 +192,7 @@ class CPC(Module):
             method,
             [block_identifier, transaction_index],
         )
-    
+
     def getAllTransactionsByBlock(self, block_number, frm=0, to=None, batch=10000):
         """
         `eth_getAllTransactionsByBlockNumberAndIndex`
@@ -253,6 +252,20 @@ class CPC(Module):
             [],
         )
 
+    def confirmBlock(self, block_identifier=None):
+        if block_identifier is None:
+            block_identifier = self.defaultBlock
+        try:
+            block = self.getBlock(block_identifier)
+            hash = block.get('hash')
+            number = block.get('number')
+        except AttributeError:
+            return False
+        try:
+            parentHash = self.getBlock(number+1).get('parentHash')
+        except AttributeError:
+            return False
+        return parentHash == hash
 
     def getProposerByBlock(self, block):
         if not isinstance(block, str):
