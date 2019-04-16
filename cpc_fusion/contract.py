@@ -1127,6 +1127,48 @@ class ContractFunction:
             **self.kwargs
         )
 
+    def raw_transact(self,transaction=None,keypath=None,password=None,chainId=None):
+        if transaction is None:
+            transact_transaction = {}
+        else:
+            transact_transaction = dict(**transaction)
+        # if keypath or password is None:
+        #     raise ValueError("keypath or password is none please enter")
+
+        if 'data' in transact_transaction:
+            raise ValueError("Cannot set data in transact transaction")
+
+        if self.address is not None:
+            transact_transaction.setdefault('to', self.address)
+        if self.web3.cpc.defaultAccount is not empty:
+            transact_transaction.setdefault('from', self.web3.cpc.defaultAccount)
+
+        if 'to' not in transact_transaction:
+            if isinstance(self, type):
+                raise ValueError(
+                    "When using `Contract.transact` from a contract factory you "
+                    "must provide a `to` address with the transaction"
+                )
+            else:
+                raise ValueError(
+                    "Please ensure that this contract instance has an address."
+                )
+
+        return raw_transact_with_contract_function(
+            keypath,
+            password,
+            chainId,
+            self.address,
+            self.web3,
+            self.function_identifier,
+            transact_transaction,
+            self.contract_abi,
+            self.abi,
+            *self.args,
+            **self.kwargs
+        )
+
+
     def estimateGas(self, transaction=None):
         if transaction is None:
             estimate_gas_transaction = {}
@@ -1470,6 +1512,55 @@ def transact_with_contract_function(
     )
 
     txn_hash = web3.eth.sendTransaction(transact_transaction)
+    return txn_hash
+
+def raw_transact_with_contract_function(
+        keypath,
+        password,
+        chainId,
+        address,
+        web3,
+        function_name=None,
+        transaction=None,
+        contract_abi=None,
+        fn_abi=None,
+        *args,
+        **kwargs):
+    """
+    Helper function for interacting with a contract function by sending a
+    transaction.
+    """
+
+    with open(keypath) as keyfile:
+        encrypted_key = keyfile.read()
+    private_key_for_senders_account = web3.cpc.account.decrypt(encrypted_key, password)
+
+    transact_transaction = prepare_transaction(
+        address,
+        web3,
+        fn_identifier=function_name,
+        contract_abi=contract_abi,
+        transaction=transaction,
+        fn_abi=fn_abi,
+        fn_args=args,
+        fn_kwargs=kwargs,
+    )
+
+    tx_dict = dict(
+        type=0,
+        nonce=web3.cpc.getTransactionCount(transact_transaction['from']),
+        gasPrice=web3.cpc.gasPrice,
+        gas=transact_transaction['gas'],
+        to=transact_transaction['to'],
+        value=transact_transaction['value'],
+        data=transact_transaction['data'],
+        chainId=chainId,
+    )
+    signed_txn = web3.cpc.account.signTransaction(tx_dict,
+                                                  private_key_for_senders_account,
+                                                  )
+
+    txn_hash = web3.cpc.sendRawTransaction(signed_txn.rawTransaction)
     return txn_hash
 
 
