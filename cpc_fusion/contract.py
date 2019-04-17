@@ -825,6 +825,44 @@ class ContractConstructor:
         # TODO: handle asynchronous contract creation
         return self.web3.eth.sendTransaction(transact_transaction)
 
+    def raw_transact(self,transaction=None,keypath=None,password=None,chainId=None):
+        if transaction is None:
+            transact_transaction = {}
+        else:
+            transact_transaction = dict(**transaction)
+            self.check_forbidden_keys_in_transaction(transact_transaction,
+                                                     ["data", "to"])
+
+        # if self.web3.cpc.defaultAccount is not empty:
+        #     transact_transaction.setdefault('from', self.web3.cpc.defaultAccount)
+
+        transact_transaction['data'] = self.data_in_transaction
+
+        with open(keypath) as keyfile:
+            encrypted_key = keyfile.read()
+        private_key_for_senders_account = self.web3.cpc.account.decrypt(encrypted_key, password)
+
+        tx_dict = dict(
+            type=0,
+            nonce=self.web3.cpc.getTransactionCount(transact_transaction['from']),
+            gasPrice=self.web3.cpc.gasPrice,
+            gas=transact_transaction['gas'],
+            # to=transact_transaction['to'],
+            value=transact_transaction['value'],
+            data=transact_transaction['data'],
+            chainId=chainId,
+        )
+        print('transact_transaction[from]',transact_transaction['from'])
+        signed_txn = self.web3.cpc.account.signTransaction(tx_dict,
+                                                      private_key_for_senders_account,
+                                                      )
+
+        # txn_hash = self.web3.cpc.sendRawTransaction(signed_txn.rawTransaction)
+
+        # TODO: handle asynchronous contract creation
+        return self.web3.cpc.sendRawTransaction(signed_txn.rawTransaction)
+
+
     @combomethod
     def buildTransaction(self, transaction=None):
         """
@@ -1127,7 +1165,7 @@ class ContractFunction:
             **self.kwargs
         )
 
-    def raw_transact(self,transaction=None,keypath=None,password=None,chainId=None):
+    def raw_transact(self,transaction=None,keypath=None,password=None,chainId=None,from_addr=None):
         if transaction is None:
             transact_transaction = {}
         else:
@@ -1511,7 +1549,7 @@ def transact_with_contract_function(
         fn_kwargs=kwargs,
     )
 
-    txn_hash = web3.eth.sendTransaction(transact_transaction)
+    txn_hash = web3.cpc.sendTransaction(transact_transaction)
     return txn_hash
 
 def raw_transact_with_contract_function(
@@ -1545,6 +1583,7 @@ def raw_transact_with_contract_function(
         fn_args=args,
         fn_kwargs=kwargs,
     )
+    transact_transaction['from']=from_addr
 
     tx_dict = dict(
         type=0,
