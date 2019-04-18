@@ -1165,7 +1165,7 @@ class ContractFunction:
             **self.kwargs
         )
 
-    def raw_transact(self,transaction=None,keypath=None,password=None,chainId=None,from_addr=None):
+    def raw_transact(self,transaction=None,keypath=None,password=None,chainId=None):
         if transaction is None:
             transact_transaction = {}
         else:
@@ -1583,7 +1583,6 @@ def raw_transact_with_contract_function(
         fn_args=args,
         fn_kwargs=kwargs,
     )
-    transact_transaction['from']=from_addr
 
     tx_dict = dict(
         type=0,
