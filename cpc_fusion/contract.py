@@ -1196,7 +1196,6 @@ class ContractFunction:
             keypath,
             password,
             chainId,
-            # from_addr,
             self.address,
             self.web3,
             self.function_identifier,
@@ -1550,14 +1549,13 @@ def transact_with_contract_function(
         fn_kwargs=kwargs,
     )
 
-    txn_hash = web3.eth.sendTransaction(transact_transaction)
+    txn_hash = web3.cpc.sendTransaction(transact_transaction)
     return txn_hash
 
 def raw_transact_with_contract_function(
         keypath,
         password,
         chainId,
-        # from_addr,
         address,
         web3,
         function_name=None,
@@ -1585,7 +1583,6 @@ def raw_transact_with_contract_function(
         fn_args=args,
         fn_kwargs=kwargs,
     )
-    # transact_transaction['from']=from_addr
 
     tx_dict = dict(
         type=0,
@@ -1597,7 +1594,6 @@ def raw_transact_with_contract_function(
         data=transact_transaction['data'],
         chainId=chainId,
     )
-    print("tx_dict",tx_dict['nonce'],"from",transact_transaction['from'])
     signed_txn = web3.cpc.account.signTransaction(tx_dict,
                                                   private_key_for_senders_account,
                                                   )
