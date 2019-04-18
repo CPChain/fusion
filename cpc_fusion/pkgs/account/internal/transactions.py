@@ -41,10 +41,10 @@ def serializable_unsigned_transaction_from_dict(transaction_dict):
         apply_formatters_to_dict(TRANSACTION_FORMATTERS),
     )
     if 'v' in filled_transaction:
-        print("'v' in filled_transaction")
+        #print("'v' in filled_transaction")
         serializer = Transaction
     else:
-        print("'v' not in filled_transaction")
+        #print("'v' not in filled_transaction")
         serializer = UnsignedTransaction
     return serializer.from_dict(filled_transaction)
 
