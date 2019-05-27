@@ -21,6 +21,7 @@ units = {
     'milliether':   decimal.Decimal('1000000000000000'),  # noqa: E241
     'milli':        decimal.Decimal('1000000000000000'),  # noqa: E241
     'ether':        decimal.Decimal('1000000000000000000'),  # noqa: E241
+    'cpc':          decimal.Decimal('1000000000000000000'),  # noqa: E241
     'kether':       decimal.Decimal('1000000000000000000000'),  # noqa: E241
     'grand':        decimal.Decimal('1000000000000000000000'),  # noqa: E241
     'mether':       decimal.Decimal('1000000000000000000000000'),  # noqa: E241
