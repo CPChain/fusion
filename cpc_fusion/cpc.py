@@ -440,3 +440,17 @@ class CPC(Module):
 
     def setGasPriceStrategy(self, gas_price_strategy):
         self.gasPriceStrategy = gas_price_strategy
+
+    @property
+    def getCurrentSpan(self):
+        return self.web3.manager.request_blocking(
+            "eth_getCurrentSpan",
+            [],
+        )
+
+    def getBlockReward(self, block_identifier=0):
+        block_identifier = self.web3.toHex(block_identifier)
+        return self.web3.manager.request_blocking(
+            "eth_getBlockReward",
+            [block_identifier],
+        )
