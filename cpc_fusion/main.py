@@ -1,7 +1,6 @@
 from eth_utils import (
     add_0x_prefix,
     apply_to_return_value,
-    from_wei,
     is_address,
     is_checksum_address,
     keccak as eth_utils_keccak,
@@ -13,6 +12,7 @@ from hexbytes import (
     HexBytes,
 )
 
+from cpc_fusion.pkgs.utils import from_wei
 from ens import ENS
 from cpc_fusion._utils.abi import (
     map_abi_data,
