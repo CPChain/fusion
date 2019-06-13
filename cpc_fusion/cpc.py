@@ -60,6 +60,7 @@ def Web3():
     from cpc_fusion import Web3
     return Web3
 
+
 class CPC(Module):
     account = Account()
     defaultAccount = empty
@@ -262,7 +263,7 @@ class CPC(Module):
         except AttributeError:
             return False
         try:
-            parentHash = self.getBlock(number+1).get('parentHash')
+            parentHash = self.getBlock(number + 1).get('parentHash')
         except AttributeError:
             return False
         return parentHash == hash
@@ -308,7 +309,10 @@ class CPC(Module):
         if 'from' not in transaction and is_checksum_address(self.defaultAccount):
             transaction = assoc(transaction, 'from', self.defaultAccount)
 
-        # TODO: move gas estimation in middleware
+        if 'type' not in transaction:
+            transaction['type'] = '0x0'
+
+            # TODO: move gas estimation in middleware
         if 'gas' not in transaction:
             transaction = assoc(
                 transaction,
