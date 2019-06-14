@@ -311,6 +311,9 @@ class CPC(Module):
 
         if 'type' not in transaction:
             transaction['type'] = '0x0'
+        else:
+            if type(transaction['type'] == int):
+                transaction['type'] = hex(transaction['type'])
 
             # TODO: move gas estimation in middleware
         if 'gas' not in transaction:
