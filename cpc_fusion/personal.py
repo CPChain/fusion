@@ -7,6 +7,7 @@ class Personal(Module):
     """
     https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal
     """
+
     def importRawKey(self, private_key, passphrase):
         return self.web3.manager.request_blocking(
             "personal_importRawKey",
@@ -25,6 +26,8 @@ class Personal(Module):
         )
 
     def sendTransaction(self, transaction, passphrase):
+        if 'type' not in transaction:
+            transaction['type'] = '0x0'
         return self.web3.manager.request_blocking(
             "personal_sendTransaction",
             [transaction, passphrase],
