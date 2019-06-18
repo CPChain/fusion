@@ -28,6 +28,9 @@ class Personal(Module):
     def sendTransaction(self, transaction, passphrase):
         if 'type' not in transaction:
             transaction['type'] = '0x0'
+        else:
+            if type(transaction['type'] == int):
+                transaction['type'] = hex(transaction['type'])
         return self.web3.manager.request_blocking(
             "personal_sendTransaction",
             [transaction, passphrase],
