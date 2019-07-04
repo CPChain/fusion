@@ -42,11 +42,11 @@ def sign_transaction_dict(eth_key, transaction_dict):
 def signature_wrapper(message, version=b'E'):
     assert isinstance(message, bytes)
     if version == b'E':
-        preamble = b'\x19Ethereum Signed Message:\n'
+        preamble = b'\x19Cpchain Signed Message:\n'
         size = str(len(message)).encode('utf-8')
         return preamble + size + message
     else:
-        raise NotImplementedError("Only the 'Ethereum Signed Message' preamble is supported")
+        raise NotImplementedError("Only the 'Cpchain Signed Message' preamble is supported")
 
 
 def hash_of_signed_transaction(txn_obj):
