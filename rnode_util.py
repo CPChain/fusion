@@ -19,6 +19,9 @@ rnode = RNode(cf)
 def join_rnode(args):
     rnode.join(keystorePath=args.keystore)
 
+def quit_rnode(args):
+    rnode.quit(keystorePath=args.keystore)
+
 def check_rnode(args):
     if args.addr:
         if rnode.is_rnode(args.addr):
@@ -45,6 +48,10 @@ query_rnode_parser.set_defaults(func=check_rnode)
 join_rnode_parser = rnode_sub_parser.add_parser('join', help='Join RNode')
 join_rnode_parser.add_argument('--keystore', type=str, help='Path of the keystore file')
 join_rnode_parser.set_defaults(func=join_rnode)
+
+quit_rnode_parser = rnode_sub_parser.add_parser('quit', help='Quit RNode')
+quit_rnode_parser.add_argument('--keystore', type=str, help='Path of the keystore file')
+quit_rnode_parser.set_defaults(func=quit_rnode)
 
 args = parser.parse_args()
 args.func(args)

@@ -10,6 +10,7 @@ import sys
 import logging
 import json
 
+logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 log = logging.getLogger()
 
 class RNode:
@@ -57,25 +58,56 @@ class RNode:
             addr = self.cf.toChecksumAddress(ks['address'])
             is_rnode = self.instance.functions.isRnode(addr).call()
             if is_rnode:
-                log.info("This address has already been RNode now.")
+                log.info("You have already been RNode.")
                 return
             gas_price = self.cf.cpc.gasPrice
             nonce = self.cf.cpc.getTransactionCount(addr)
+            log.info("Start join RNode...")
+            tx = self.instance.functions.joinRnode(version).buildTransaction({
+                'gasPrice': gas_price,
+                "nonce": nonce,  
+                "gas": 300000,
+                "from": addr,
+                "value": self.cf.toWei(200000, 'ether'),
+                "type": 0,
+                "chainId": 337
+            })
+            password = getpass.getpass("Please input your password:")
+            decrypted_key = self.cf.cpc.account.decrypt(ks, password)
+            password = ""
+            signed_txn = self.cf.cpc.account.signTransaction(tx, decrypted_key)
+            tx_hash = self.cf.cpc.sendRawTransaction(signed_txn.rawTransaction)
+            self.cf.cpc.waitForTransactionReceipt(tx_hash)
+            log.info(f'Success')
+
+    def quit(self, keystorePath):
+        with open(keystorePath, 'r') as fr:
+            ks = json.load(fr)
+            addr = self.cf.toChecksumAddress(ks['address'])
+            is_rnode = self.instance.functions.isRnode(addr).call()
             if not is_rnode:
-                log.info("Start join RNode...")
-                tx = self.instance.functions.joinRnode(version).buildTransaction({
-                    'gasPrice': gas_price,
-                    "nonce": nonce,  
-                    "gas": 300000,
-                    "from": addr,
-                    "value": self.cf.toWei(200000, 'ether'),
-                    "type": 0,
-                    "chainId": 337
-                })
-                password = getpass.getpass("Please input your password:")
-                decrypted_key = self.cf.cpc.account.decrypt(ks, password)
-                password = ""
-                signed_txn = self.cf.cpc.account.signTransaction(tx, decrypted_key)
-                tx_hash = self.cf.cpc.sendRawTransaction(signed_txn.rawTransaction)
-                self.cf.cpc.waitForTransactionReceipt(tx_hash)
-                log.info(f'Success')
+                log.info("You are not RNode now.")
+                return
+            gas_price = self.cf.cpc.gasPrice
+            nonce = self.cf.cpc.getTransactionCount(addr)
+            log.info("Start quit RNode...")
+            tx = self.instance.functions.quitRnode().buildTransaction({
+                'gasPrice': gas_price,
+                "nonce": nonce,  
+                "gas": 300000,
+                "from": addr,
+                "value": 0,
+                "type": 0,
+                "chainId": 337
+            })
+            password = getpass.getpass("Please input your password:")
+            decrypted_key = self.cf.cpc.account.decrypt(ks, password)
+            password = ""
+            signed_txn = self.cf.cpc.account.signTransaction(tx, decrypted_key)
+            tx_hash = self.cf.cpc.sendRawTransaction(signed_txn.rawTransaction)
+            receipt = self.cf.cpc.waitForTransactionReceipt(tx_hash)
+            if receipt.status == 0:
+                log.info('Sorry, quit failed, maybe this because you quitted in the locked period. Or maybe you are a proposer now.')
+            else:
+                log.info('Success')
+            log.info(f'Please check https://cpchain.io/explorer/address/{addr}')
