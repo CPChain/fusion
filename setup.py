@@ -60,13 +60,14 @@ extras_require['dev'] = (
 setup(
     name='cpc-fusion',
     # *IMPORTANT*: Don't manually change the version here. Use the 'bumpversion' utility.
-    version='0.1.3',
+    version='0.1.4',
     description="""CPC Fusion""",
     long_description_markdown_filename='README.md',
     author='Piper Merriam , CPChain',
     author_email='wujj@cpchain.io',
     url='https://bitbucket.org/cpchain/fusion/',
     include_package_data=True,
+    scripts=['cmd/cpc-fusion'],
     install_requires=[
         "toolz>=0.9.0,<1.0.0;implementation_name=='pypy'",
         "cytoolz>=0.9.0,<1.0.0;implementation_name=='cpython'",
