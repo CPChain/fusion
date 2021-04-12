@@ -9,13 +9,14 @@ import argparse
 import sys
 
 from cpc_fusion import Web3
-from cpc_fusion.default_contracts import RNode
+from cpc_fusion.default_contracts import RNode, Campaign
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 log = logging.getLogger()
 
 cf = Web3(Web3.HTTPProvider('https://civilian.cpchain.io'))
 rnode = RNode(cf)
+campaign = Campaign(cf)
 
 def join_rnode(args):
     rnode.join(keystorePath=args.keystore)
@@ -35,10 +36,20 @@ def check_rnode(args):
     log.info('RNode threshold: %d CPC', cf.fromWei(rnode.threshold, 'ether'))
     log.info('RNodes count: %d', rnode.rnodes_num)
 
+
+def check_campaign(args):
+    log.info('Campaign version: %d', campaign.supported_version)
+    log.info('Campaign term-idx: %d', campaign.term_idx)
+    log.info('Campaign view-len: %d', campaign.view_len)
+    log.info('Campaign term-len: %d', campaign.term_len)
+    log.info('Campaign min-noc: %d', campaign.min_noc)
+    log.info('Campaign max-noc: %d', campaign.max_noc)
+
 parser = argparse.ArgumentParser()
 
 subparsers = parser.add_subparsers(help="sub-command help")
 
+# RNode
 rnode_parser = subparsers.add_parser('rnode', help="RNode contract")
 rnode_sub_parser = rnode_parser.add_subparsers(help='rnode sub-command')
 
@@ -53,6 +64,13 @@ join_rnode_parser.set_defaults(func=join_rnode)
 quit_rnode_parser = rnode_sub_parser.add_parser('quit', help='Quit RNode')
 quit_rnode_parser.add_argument('--keystore', type=str, help='Path of the keystore file')
 quit_rnode_parser.set_defaults(func=quit_rnode)
+
+# Campaign
+campaign_parser = subparsers.add_parser('campaign', help="Campaign contract")
+campaign_sub_parser = campaign_parser.add_subparsers(help='campaign sub-command')
+
+check_campaign_parser = campaign_sub_parser.add_parser('check', help='check parameters for campaign contracts')
+check_campaign_parser.set_defaults(func=check_campaign)
 
 args = parser.parse_args()
 args.func(args)
