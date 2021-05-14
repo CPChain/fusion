@@ -419,7 +419,6 @@ class Account(object):
         # allow from field, *only* if it matches the private key
         if 'from' in transaction_dict:
             if transaction_dict['from'] == account.address:
-                print('tx from:',transaction_dict['from'])
                 sanitized_transaction = dissoc(transaction_dict, 'from')
             else:
                 raise TypeError("from field must match key's %s, but it was %s" % (
