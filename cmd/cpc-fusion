@@ -7,6 +7,8 @@ Join and Quit RNode
 import logging
 import argparse
 import sys
+import getpass
+import json
 
 from cpc_fusion import Web3
 from cpc_fusion.default_contracts import RNode, Campaign
@@ -45,6 +47,45 @@ def check_campaign(args):
     log.info('Campaign min-noc: %d', campaign.min_noc)
     log.info('Campaign max-noc: %d', campaign.max_noc)
 
+def deploy(args):
+    log.info('Start to deploy contract')
+    log.info('ABI: %s, keystore: %s', args.abi, args.keystore)
+    with open(args.abi, 'r') as fr:
+        contract_data = json.load(fr)
+    contract = cf.cpc.contract(
+        abi=contract_data['abi'], bytecode=contract_data['bytecode'])
+
+    # build tx
+    keystorePath = args.keystore
+    with open(keystorePath, 'r') as fr:
+        ks = json.load(fr)
+        addr = cf.toChecksumAddress(ks['address'])
+    gas_price = cf.cpc.gasPrice
+    nonce = cf.cpc.getTransactionCount(addr)
+    estimated_gas = contract.constructor().estimateGas()
+    tx = contract.constructor().buildTransaction({
+        'gasPrice': gas_price,
+        "nonce": nonce,
+        "gas": estimated_gas,
+        "from": addr,
+        "value": cf.toWei(0, 'ether'),
+        "type": 0,
+        "chainId": 337
+    })
+
+    # send tx
+    password = getpass.getpass("Please input your password:")
+    decrypted_key = cf.cpc.account.decrypt(ks, password)
+    password = ""
+    signed_txn = cf.cpc.account.signTransaction(tx, decrypted_key)
+    tx_hash = cf.cpc.sendRawTransaction(signed_txn.rawTransaction)
+            
+    # get tx receipt to get contract address
+    tx_receipt = cf.cpc.waitForTransactionReceipt(tx_hash)
+    address = tx_receipt['contractAddress']
+    log.info(f'{contract_data["contractName"]} Address: {address}, Block: {tx_receipt["blockNumber"]}')
+    return address
+
 parser = argparse.ArgumentParser()
 
 subparsers = parser.add_subparsers(help="sub-command help")
@@ -71,6 +112,12 @@ campaign_sub_parser = campaign_parser.add_subparsers(help='campaign sub-command'
 
 check_campaign_parser = campaign_sub_parser.add_parser('check', help='check parameters for campaign contracts')
 check_campaign_parser.set_defaults(func=check_campaign)
+
+# Deploy
+deploy_parser = subparsers.add_parser('deploy', help="Deploy contract")
+deploy_parser.add_argument('--keystore', type=str, help='Path of the keystore file')
+deploy_parser.add_argument('--abi', type=str, help='Path of the keystore file')
+deploy_parser.set_defaults(func=deploy)
 
 args = parser.parse_args()
 args.func(args)
