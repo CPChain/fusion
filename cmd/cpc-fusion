@@ -47,13 +47,24 @@ def check_campaign(args):
     log.info('Campaign min-noc: %d', campaign.min_noc)
     log.info('Campaign max-noc: %d', campaign.max_noc)
 
+
+def _get_instance(args):
+    """ Get instance
+    """
+    with open(args.abi, 'r') as fr:
+        contract_data = json.load(fr)
+    if not args.address:
+        contract = cf.cpc.contract(
+            abi=contract_data['abi'], bytecode=contract_data['bytecode'])
+    else:
+        contract = cf.cpc.contract(address=args.address, abi=contract_data['abi'])
+    return contract, contract_data['contractName']
+
+
 def deploy(args):
     log.info('Start to deploy contract')
     log.info('ABI: %s, keystore: %s', args.abi, args.keystore)
-    with open(args.abi, 'r') as fr:
-        contract_data = json.load(fr)
-    contract = cf.cpc.contract(
-        abi=contract_data['abi'], bytecode=contract_data['bytecode'])
+    contract, contract_name = _get_instance(args)
 
     # build tx
     keystorePath = args.keystore
@@ -83,8 +94,27 @@ def deploy(args):
     # get tx receipt to get contract address
     tx_receipt = cf.cpc.waitForTransactionReceipt(tx_hash)
     address = tx_receipt['contractAddress']
-    log.info(f'{contract_data["contractName"]} Address: {address}, Block: {tx_receipt["blockNumber"]}')
+    log.info(f'{contract_name} Address: {address}, Block: {tx_receipt["blockNumber"]}')
     return address
+
+
+def get_configs(args):
+    """
+    遍历 ABI，获取所有的参数，并进行打印
+    """
+    with open(args.abi, 'r') as fr:
+        contract_data = json.load(fr)
+    abi = contract_data['abi']
+    instance, name = _get_instance(args)
+    log.info(f'{name} contract')
+    # 遍历 ABI，获取所有的可获取的参数变量
+    log.info('-' * 10 +  'Configs' + '-' * 10)
+    constants = [i for i in abi if i.get('constant') == True and i['type'] == 'function' and len(i['inputs']) == 0]
+    for constant in constants:
+        name = constant["name"]
+        value = instance.functions[name]().call()
+        log.info(f'{name}: {value}')
+
 
 parser = argparse.ArgumentParser()
 
@@ -118,6 +148,12 @@ deploy_parser = subparsers.add_parser('deploy', help="Deploy contract")
 deploy_parser.add_argument('--keystore', type=str, help='Path of the keystore file')
 deploy_parser.add_argument('--abi', type=str, help='Path of the keystore file')
 deploy_parser.set_defaults(func=deploy)
+
+# Get configs
+get_conf_parser = subparsers.add_parser('get-configs', help="Deploy contract")
+get_conf_parser.add_argument('--address', type=str, help='Address of this contract')
+get_conf_parser.add_argument('--abi', type=str, help='Path of the ABI file')
+get_conf_parser.set_defaults(func=get_configs)
 
 args = parser.parse_args()
 args.func(args)
