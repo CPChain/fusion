@@ -116,6 +116,65 @@ def get_configs(args):
         log.info(f'{name}: {value}')
 
 
+def call_func(args):
+    with open(args.abi, 'r') as fr:
+        contract_data = json.load(fr)
+    abi = contract_data['abi']
+    instance, name = _get_instance(args)
+    log.info(f'{name} contract')
+
+    keystorePath = args.keystore
+    with open(keystorePath, 'r') as fr:
+        ks = json.load(fr)
+        addr = cf.toChecksumAddress(ks['address'])
+
+    name = args.function
+    value = args.parameters
+
+    # 获取指定的设置信息
+    constants = [i for i in abi if i.get('name') == name]
+    if len(constants) == 0:
+        log.error(f"Can't find this configuration: {name}")
+        return
+    constant = constants[0]
+    if len(value.split(',')) != len(constant['inputs']):
+        log.error(f'Your input {len(value.split(","))} parameters, not equal to {len(constant["inputs"])}')
+        return
+    inputs = []
+    for i in range(len(constant['inputs'])):
+        target = constant['inputs'][i]
+        val = value.split(',')[i]
+        if target['type'] in ['uint', 'uint256']:
+            val = int(val)
+        inputs.append(val)
+    estimated_gas = 300000 # instance.functions[name](*inputs).estimateGas()
+    gas_price = cf.cpc.gasPrice
+    nonce = cf.cpc.getTransactionCount(addr)
+    tx = instance.functions[name](*inputs).buildTransaction({
+        'gasPrice': gas_price,
+        "nonce": nonce,
+        "gas": estimated_gas,
+        "from": addr,
+        "value": cf.toWei(0, 'ether'),
+        "type": 0,
+        "chainId": 337
+    })
+    # send tx
+    password = getpass.getpass("Please input your password:")
+    decrypted_key = cf.cpc.account.decrypt(ks, password)
+    password = ""
+    signed_txn = cf.cpc.account.signTransaction(tx, decrypted_key)
+    tx_hash = cf.cpc.sendRawTransaction(signed_txn.rawTransaction)
+            
+    # get tx receipt to get contract address
+    receipt = cf.cpc.waitForTransactionReceipt(tx_hash)
+    if receipt.status == 0:
+        print(receipt)
+        log.info('Sorry, failed.')
+    else:
+        log.info('Success')
+
+
 parser = argparse.ArgumentParser()
 
 subparsers = parser.add_subparsers(help="sub-command help")
@@ -145,15 +204,24 @@ check_campaign_parser.set_defaults(func=check_campaign)
 
 # Deploy
 deploy_parser = subparsers.add_parser('deploy', help="Deploy contract")
-deploy_parser.add_argument('--keystore', type=str, help='Path of the keystore file')
-deploy_parser.add_argument('--abi', type=str, help='Path of the keystore file')
+deploy_parser.add_argument('--keystore', type=str, help='Path of the keystore file', required=True)
+deploy_parser.add_argument('--abi', type=str, help='Path of the keystore file', required=True)
 deploy_parser.set_defaults(func=deploy)
 
 # Get configs
 get_conf_parser = subparsers.add_parser('get-configs', help="Deploy contract")
-get_conf_parser.add_argument('--address', type=str, help='Address of this contract')
-get_conf_parser.add_argument('--abi', type=str, help='Path of the ABI file')
+get_conf_parser.add_argument('--address', type=str, help='Address of this contract', required=True)
+get_conf_parser.add_argument('--abi', type=str, help='Path of the ABI file', required=True)
 get_conf_parser.set_defaults(func=get_configs)
+
+# Set configs
+call_func_parser = subparsers.add_parser('call-func', help="Deploy contract")
+call_func_parser.add_argument('--keystore', type=str, help='Path of the keystore file', required=True)
+call_func_parser.add_argument('--address', type=str, help='Address of this contract', required=True)
+call_func_parser.add_argument('--abi', type=str, help='Path of the ABI file', required=True)
+call_func_parser.add_argument('--function', type=str, help='Function name of the parameter', required=True)
+call_func_parser.add_argument('--parameters', type=str, help='Value of the parameter(split by ,)', required=True)
+call_func_parser.set_defaults(func=call_func)
 
 args = parser.parse_args()
 args.func(args)
