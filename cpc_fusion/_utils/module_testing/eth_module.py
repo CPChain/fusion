@@ -2,7 +2,7 @@
 
 import pytest
 
-from eth_abi import (
+from cpc_abi import (
     decode_single,
 )
 from eth_utils import (

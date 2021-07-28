@@ -1,8 +1,8 @@
-from eth_abi import (
+from cpc_abi import (
     decode_abi,
     is_encodable,
 )
-from eth_abi.grammar import (
+from cpc_abi.grammar import (
     parse as parse_type_string,
 )
 from eth_utils import (

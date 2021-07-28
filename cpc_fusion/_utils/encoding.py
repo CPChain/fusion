@@ -2,7 +2,7 @@
 import json
 import re
 
-from eth_abi.encoding import (
+from cpc_abi.encoding import (
     BaseArrayEncoder,
 )
 from eth_utils import (
@@ -293,10 +293,10 @@ class DynamicArrayPackedEncoder(BaseArrayEncoder):
 #  TODO: Replace with eth-abi packed encoder once web3 requires eth-abi>=2
 def encode_single_packed(_type, value):
     import codecs
-    from eth_abi import (
+    from cpc_abi import (
         grammar as abi_type_parser,
     )
-    from eth_abi.registry import has_arrlist, registry
+    from cpc_abi.registry import has_arrlist, registry
     abi_type = abi_type_parser.parse(_type)
     if has_arrlist(_type):
         item_encoder = registry.get_encoder(str(abi_type.item_type))

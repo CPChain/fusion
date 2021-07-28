@@ -29,7 +29,7 @@ lint-roll:
 	$(MAKE) lint
 
 test:
-	pytest tests
+	python -m pytest tests
 
 test-all:
 	tox
@@ -47,12 +47,13 @@ linux-docs: build-docs
 	readlink -f docs/_build/html/index.html
 
 release: clean
-	CURRENT_SIGN_SETTING=$(git config commit.gpgSign)
-	git config commit.gpgSign true
-	bumpversion $(bump)
-	git push upstream && git push upstream --tags
-	python setup.py sdist bdist_wheel upload
-	git config commit.gpgSign "$(CURRENT_SIGN_SETTING)"
+	# CURRENT_SIGN_SETTING=$(git config commit.gpgSign)
+	# git config commit.gpgSign true
+	bumpversion --allow-dirty $(bump)
+	git push && git push --tags
+	python setup.py sdist bdist_wheel
+	python -m twine upload --repository pypi dist/*
+	# git config commit.gpgSign "$(CURRENT_SIGN_SETTING)"
 
 dist: clean
 	python setup.py sdist bdist_wheel

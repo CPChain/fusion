@@ -4,7 +4,7 @@ from abc import (
 )
 import itertools
 
-from eth_abi import (
+from cpc_abi import (
     decode_abi,
     decode_single,
     encode_single,

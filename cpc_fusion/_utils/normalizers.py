@@ -6,7 +6,7 @@ from distutils.version import (
 import functools
 import json
 
-import eth_abi
+import cpc_abi
 from eth_utils import (
     to_checksum_address,
 )
@@ -160,7 +160,7 @@ BASE_RETURN_NORMALIZERS = [
 ]
 
 
-if LooseVersion(eth_abi.__version__) < LooseVersion("2"):
+if LooseVersion(cpc_abi.__version__) < LooseVersion("2"):
     BASE_RETURN_NORMALIZERS.append(decode_abi_strings)
 
 

@@ -8,7 +8,7 @@ from distutils.version import (
 import json
 import pytest
 
-import eth_abi
+import cpc_abi
 from hexbytes import (
     HexBytes,
 )
@@ -187,14 +187,14 @@ def test_saved_method_call_with_multiple_arguments(math_contract, call_args, cal
 def test_call_get_string_value(string_contract, call):
     result = call(contract=string_contract,
                   contract_function='getValue')
-    # eth_abi.decode_abi() does not assume implicit utf-8
+    # cpc_abi.decode_abi() does not assume implicit utf-8
     # encoding of string return values. Thus, we need to decode
     # ourselves for fair comparison.
     assert result == "Caqalai"
 
 
 @pytest.mark.skipif(
-    LooseVersion(eth_abi.__version__) >= LooseVersion("2"),
+    LooseVersion(cpc_abi.__version__) >= LooseVersion("2"),
     reason="eth-abi >=2 does utf-8 string decoding")
 def test_call_read_string_variable(string_contract, call):
     result = call(contract=string_contract,
@@ -203,7 +203,7 @@ def test_call_read_string_variable(string_contract, call):
 
 
 @pytest.mark.skipif(
-    LooseVersion(eth_abi.__version__) < LooseVersion("2"),
+    LooseVersion(cpc_abi.__version__) < LooseVersion("2"),
     reason="eth-abi does not raise exception on undecodable bytestrings")
 def test_call_on_undecodable_string(string_contract, call):
     with pytest.raises(BadFunctionCallOutput):

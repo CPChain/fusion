@@ -193,7 +193,7 @@ def test_transact_when_default_account_is_set(web3,
 
 
 def test_transacting_with_contract_with_string_argument(web3, string_contract, transact, call):
-    # eth_abi will pass as raw bytes, no encoding
+    # cpc_abi will pass as raw bytes, no encoding
     # unless we encode ourselves
     txn_hash = transact(contract=string_contract,
                         contract_function='setValue',
@@ -258,7 +258,7 @@ def test_transacting_with_contract_respects_explicit_gas(web3,
     assert deploy_receipt is not None
     string_contract = StringContract(address=deploy_receipt['contractAddress'])
 
-    # eth_abi will pass as raw bytes, no encoding
+    # cpc_abi will pass as raw bytes, no encoding
     # unless we encode ourselves
     txn_hash = transact(contract=string_contract,
                         contract_function='setValue',
@@ -294,7 +294,7 @@ def test_auto_gas_computation_when_transacting(web3,
 
     gas_estimate = string_contract.functions.setValue(to_bytes(text="ÄLÄMÖLÖ")).estimateGas()
 
-    # eth_abi will pass as raw bytes, no encoding
+    # cpc_abi will pass as raw bytes, no encoding
     # unless we encode ourselves
     txn_hash = transact(contract=string_contract,
                         contract_function="setValue",

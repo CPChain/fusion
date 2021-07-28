@@ -1,9 +1,9 @@
 import functools
 
-from eth_abi import (
-    encode_abi as eth_abi_encode_abi,
+from cpc_abi import (
+    encode_abi as cpc_abi_encode_abi,
 )
-from eth_abi.exceptions import (
+from cpc_abi.exceptions import (
     EncodingError,
 )
 from eth_utils import (
@@ -151,7 +151,7 @@ def encode_abi(web3, abi, arguments, data=None):
             argument_types,
             arguments,
         )
-        encoded_arguments = eth_abi_encode_abi(
+        encoded_arguments = cpc_abi_encode_abi(
             argument_types,
             normalized_arguments,
         )

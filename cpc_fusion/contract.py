@@ -5,10 +5,10 @@ import copy
 import functools
 import itertools
 
-from eth_abi import (
+from cpc_abi import (
     decode_abi,
 )
-from eth_abi.exceptions import (
+from cpc_abi.exceptions import (
     DecodingError,
 )
 from eth_utils import (

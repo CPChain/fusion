@@ -3,7 +3,7 @@ from decimal import (
 )
 import pytest
 
-from eth_abi import (
+from cpc_abi import (
     encode_abi,
 )
 

@@ -4,8 +4,8 @@ from collections import (
 import itertools
 import re
 
-from eth_abi import (
-    is_encodable as eth_abi_is_encodable,
+from cpc_abi import (
+    is_encodable as cpc_abi_is_encodable,
 )
 from eth_utils import (
     is_hex,
@@ -108,12 +108,12 @@ def filter_by_argument_name(argument_names, contract_abi):
 
 
 try:
-    from eth_abi.abi import (
+    from cpc_abi.abi import (
         process_type,
         collapse_type,
     )
 except ImportError:
-    from eth_abi.grammar import (
+    from cpc_abi.grammar import (
         parse as parse_type_string,
         normalize as normalize_type_string,
         TupleType,
@@ -181,7 +181,7 @@ def is_encodable(_type, value):
         if is_hex(value) and len(value) % 2 == 0:
             # Require hex-encoding of full bytes (even length)
             bytes_val = to_bytes(hexstr=value)
-            return eth_abi_is_encodable(_type, bytes_val)
+            return cpc_abi_is_encodable(_type, bytes_val)
         else:
             return False
     elif base == 'string' and isinstance(value, bytes):
@@ -191,9 +191,9 @@ def is_encodable(_type, value):
         except UnicodeDecodeError:
             return False
         else:
-            return eth_abi_is_encodable(_type, string_val)
+            return cpc_abi_is_encodable(_type, string_val)
     else:
-        return eth_abi_is_encodable(_type, value)
+        return cpc_abi_is_encodable(_type, value)
 
 
 def filter_by_encodability(args, kwargs, contract_abi):
