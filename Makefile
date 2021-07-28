@@ -58,3 +58,4 @@ release: clean
 dist: clean
 	python setup.py sdist bdist_wheel
 	ls -l dist
+	twine check dist/*
