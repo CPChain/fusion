@@ -60,7 +60,7 @@ extras_require['dev'] = (
 setup(
     name='cpc-fusion',
     # *IMPORTANT*: Don't manually change the version here. Use the 'bumpversion' utility.
-    version='0.1.11',
+    version='0.1.12',
     description="""CPC Fusion""",
     long_description_markdown_filename='README.md',
     author='Piper Merriam , CPChain',
