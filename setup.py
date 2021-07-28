@@ -72,7 +72,7 @@ setup(
         "toolz>=0.9.0,<1.0.0;implementation_name=='pypy'",
         "cytoolz>=0.9.0,<1.0.0;implementation_name=='cpython'",
         # "eth-abi==1.3.0",
-        "cpc-abi>=1.3.3",
+        "cpc-abi>=1.3.4",
         "eth-account>=0.2.1,<0.4.0",
         "eth-utils>=1.2.0,<2.0.0",
         "hexbytes>=0.1.0,<1.0.0",
