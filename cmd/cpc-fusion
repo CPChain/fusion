@@ -48,12 +48,12 @@ def check_campaign(args):
     log.info('Campaign max-noc: %d', campaign.max_noc)
 
 
-def _get_instance(args):
+def _get_instance(args, has_address=True):
     """ Get instance
     """
     with open(args.abi, 'r') as fr:
         contract_data = json.load(fr)
-    if not args.address:
+    if not has_address:
         contract = cf.cpc.contract(
             abi=contract_data['abi'], bytecode=contract_data['bytecode'])
     else:
@@ -64,7 +64,7 @@ def _get_instance(args):
 def deploy(args):
     log.info('Start to deploy contract')
     log.info('ABI: %s, keystore: %s', args.abi, args.keystore)
-    contract, contract_name = _get_instance(args)
+    contract, contract_name = _get_instance(args, False)
 
     # build tx
     keystorePath = args.keystore
