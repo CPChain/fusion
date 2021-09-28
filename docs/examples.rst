@@ -314,7 +314,7 @@ For this example, we'll be inspecting the `Unicorns <https://etherscan.io/token/
     
     import os
     # Please play nice and don't use this key for any shenanigans, thanks!!
-    os.environ['INFURA_API_KEY'] = "b2679bb624354d1b9a2586154651b51f"
+    os.environ['INFURA_API_KEY'] = "<your API KEY>"
 
 .. doctest::
 
