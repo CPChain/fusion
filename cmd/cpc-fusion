@@ -48,7 +48,7 @@ def check_campaign(args):
     log.info('Campaign max-noc: %d', campaign.max_noc)
 
 
-def _get_instance(args, has_address=True):
+def _get_instance(cf, args, has_address=True):
     """ Get instance
     """
     with open(args.abi, 'r') as fr:
@@ -63,8 +63,10 @@ def _get_instance(args, has_address=True):
 
 def deploy(args):
     log.info('Start to deploy contract')
-    log.info('ABI: %s, keystore: %s', args.abi, args.keystore)
-    contract, contract_name = _get_instance(args, False)
+    log.info('ABI: %s, keystore: %s, endpint: %s, chainID %d', args.abi, args.keystore, args.endpoint, args.chainID)
+
+    cf = Web3(Web3.HTTPProvider(args.endpoint))
+    contract, contract_name = _get_instance(cf, args, False)
 
     # build tx
     keystorePath = args.keystore
@@ -81,7 +83,7 @@ def deploy(args):
         "from": addr,
         "value": cf.toWei(0, 'ether'),
         "type": 0,
-        "chainId": 337
+        "chainId": args.chainID
     })
 
     # send tx
@@ -105,7 +107,7 @@ def get_configs(args):
     with open(args.abi, 'r') as fr:
         contract_data = json.load(fr)
     abi = contract_data['abi']
-    instance, name = _get_instance(args)
+    instance, name = _get_instance(cf, args)
     log.info(f'{name} contract')
     # 遍历 ABI，获取所有的可获取的参数变量
     log.info('-' * 10 +  'Configs' + '-' * 10)
@@ -120,7 +122,7 @@ def call_func(args):
     with open(args.abi, 'r') as fr:
         contract_data = json.load(fr)
     abi = contract_data['abi']
-    instance, name = _get_instance(args)
+    instance, name = _get_instance(cf, args)
     log.info(f'{name} contract')
 
     keystorePath = args.keystore
@@ -206,6 +208,8 @@ check_campaign_parser.set_defaults(func=check_campaign)
 deploy_parser = subparsers.add_parser('deploy', help="Deploy contract")
 deploy_parser.add_argument('--keystore', type=str, help='Path of the keystore file', required=True)
 deploy_parser.add_argument('--abi', type=str, help='Path of the keystore file', required=True)
+deploy_parser.add_argument('--endpoint', type=str, help='RPC endpoint of your node', required=False, default="https://civilian.cpchain.io")
+deploy_parser.add_argument('--chainID', type=int, help="ChainID of the chain, mainnet: 337(Default), testnet: 41", default=337)
 deploy_parser.set_defaults(func=deploy)
 
 # Get configs
