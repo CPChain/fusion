@@ -49,7 +49,8 @@ linux-docs: build-docs
 release: clean
 	# CURRENT_SIGN_SETTING=$(git config commit.gpgSign)
 	# git config commit.gpgSign true
-	bumpversion --allow-dirty $(bump)
+	# bump=patch
+	bumpversion --allow-dirty patch
 	git push && git push --tags
 	python setup.py sdist bdist_wheel
 	python -m twine upload --repository pypi dist/*
