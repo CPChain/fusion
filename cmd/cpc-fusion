@@ -7,11 +7,15 @@ Join and Quit RNode
 import logging
 import argparse
 import sys
+import os
 import getpass
 import json
 
 from cpc_fusion import Web3
 from cpc_fusion.default_contracts import RNode, Campaign
+
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+from version import get_version_parser, get_version
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 log = logging.getLogger()
@@ -179,6 +183,8 @@ def call_func(args):
 
 parser = argparse.ArgumentParser()
 
+parser.add_argument('-v', '--version', action='version', version=get_version())
+
 subparsers = parser.add_subparsers(help="sub-command help")
 
 # RNode
@@ -213,13 +219,13 @@ deploy_parser.add_argument('--chainID', type=int, help="ChainID of the chain, ma
 deploy_parser.set_defaults(func=deploy)
 
 # Get configs
-get_conf_parser = subparsers.add_parser('get-configs', help="Deploy contract")
+get_conf_parser = subparsers.add_parser('get-configs', help="Get the config of a smart contract")
 get_conf_parser.add_argument('--address', type=str, help='Address of this contract', required=True)
 get_conf_parser.add_argument('--abi', type=str, help='Path of the ABI file', required=True)
 get_conf_parser.set_defaults(func=get_configs)
 
 # Set configs
-call_func_parser = subparsers.add_parser('call-func', help="Deploy contract")
+call_func_parser = subparsers.add_parser('call-func', help="Call smart contract")
 call_func_parser.add_argument('--keystore', type=str, help='Path of the keystore file', required=True)
 call_func_parser.add_argument('--address', type=str, help='Address of this contract', required=True)
 call_func_parser.add_argument('--abi', type=str, help='Path of the ABI file', required=True)
@@ -227,6 +233,9 @@ call_func_parser.add_argument('--function', type=str, help='Function name of the
 call_func_parser.add_argument('--parameters', type=str, help='Value of the parameter(split by ,)', required=True)
 call_func_parser.add_argument('--value', type=float, help="The value(CPC) of the transaction", default=0, required=False)
 call_func_parser.set_defaults(func=call_func)
+
+# version parser
+get_version_parser(subparsers)
 
 args = parser.parse_args()
 args.func(args)
