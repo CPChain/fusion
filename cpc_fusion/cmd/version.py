@@ -24,7 +24,8 @@ def find_tag(proj_dir, revision):
 def git_version():
     try:
         cmd_dir = os.path.dirname(os.path.realpath(__file__))
-        proj_dir = os.path.dirname(cmd_dir)
+        src_dir = os.path.dirname(cmd_dir)
+        proj_dir = os.path.dirname(src_dir)
         GIT_REVISION = get_git_revision(proj_dir)
         tag = find_tag(proj_dir, GIT_REVISION)
         if tag is not None:
