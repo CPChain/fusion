@@ -1,6 +1,7 @@
 *.py[cod]
 
 __pycache__
+keystore
 
 # C extensions
 *.so
