@@ -1,5 +1,6 @@
 
 from argparse import _SubParsersAction
+import pkg_resources
 import os
 import pathlib
 
@@ -36,7 +37,7 @@ def git_version():
     return GIT_REVISION
 
 def get_version():
-    return git_version()
+    return pkg_resources.get_distribution("cpc_fusion").version
 
 def print_version(*_args, **_kwargs):
     print(get_version())

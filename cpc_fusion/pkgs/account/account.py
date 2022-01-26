@@ -174,7 +174,7 @@ class Account(object):
         assert len(key_bytes) == 32
         if kdf is None:
             kdf = 'scrypt'
-        return create_keyfile_json(key_bytes, password_bytes, kdf)
+        return create_keyfile_json(key_bytes, password_bytes, version=3, kdf=kdf)
 
     @combomethod
     def privateKeyToAccount(self, private_key):
