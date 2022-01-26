@@ -43,4 +43,4 @@ Note
 
 If you get the result `UnhandledRequest: No providers responded to the RPC request` then you are not connected to a node.
 
-Read more in the [documentation on CPChain](http://docs.cpchain.io/).
+Read more in the [documentation on CPChain](https://docs.cpchain.io/content/api/cpc_fusion.html).
