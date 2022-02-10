@@ -19,6 +19,7 @@ from cpc_fusion import Web3
 from cpc_fusion.default_contracts import RNode, Campaign
 from cpc_fusion.cmd.version import get_version_parser, get_version
 from cpc_fusion.cmd.account import get_account_parser
+from cpc_fusion.cmd.view_func import builder_view_func_parser
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 log = logging.getLogger()
@@ -246,6 +247,9 @@ call_func_parser.add_argument('--value', type=float, help="The value(CPC) of the
 call_func_parser.add_argument('--endpoint', type=str, help='RPC endpoint of your node', required=False, default="https://civilian.cpchain.io")
 call_func_parser.add_argument('--chainID', type=int, help="ChainID of the chain, mainnet: 337(Default), testnet: 41", default=337)
 call_func_parser.set_defaults(func=call_func)
+
+# view funcs
+builder_view_func_parser(subparsers)
 
 # version parser
 get_version_parser(subparsers)
