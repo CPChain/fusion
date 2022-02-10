@@ -114,6 +114,8 @@ def get_configs(args):
     with open(args.abi, 'r') as fr:
         contract_data = json.load(fr)
     abi = contract_data['abi']
+
+    cf = Web3(Web3.HTTPProvider(args.endpoint))
     instance, name = _get_instance(cf, args)
     log.info(f'{name} contract')
     # 遍历 ABI，获取所有的可获取的参数变量
@@ -129,6 +131,7 @@ def call_func(args):
     with open(args.abi, 'r') as fr:
         contract_data = json.load(fr)
     abi = contract_data['abi']
+    cf = Web3(Web3.HTTPProvider(args.endpoint))
     instance, name = _get_instance(cf, args)
     log.info(f'{name} contract')
 
@@ -166,7 +169,7 @@ def call_func(args):
         "from": addr,
         "value": cf.toWei(args.value, 'ether'),
         "type": 0,
-        "chainId": 337
+        "chainId": args.chainID
     })
     # send tx
     password = getpass.getpass("Please input your password:")
@@ -228,6 +231,8 @@ deploy_parser.set_defaults(func=deploy)
 get_conf_parser = subparsers.add_parser('get-configs', help="Get the config of a smart contract")
 get_conf_parser.add_argument('--address', type=str, help='Address of this contract', required=True)
 get_conf_parser.add_argument('--abi', type=str, help='Path of the ABI file', required=True)
+get_conf_parser.add_argument('--endpoint', type=str, help='RPC endpoint of your node', required=False, default="https://civilian.cpchain.io")
+get_conf_parser.add_argument('--chainID', type=int, help="ChainID of the chain, mainnet: 337(Default), testnet: 41", default=337)
 get_conf_parser.set_defaults(func=get_configs)
 
 # Set configs
@@ -238,6 +243,8 @@ call_func_parser.add_argument('--abi', type=str, help='Path of the ABI file', re
 call_func_parser.add_argument('--function', type=str, help='Function name of the parameter', required=True)
 call_func_parser.add_argument('--parameters', type=str, help='Value of the parameter(split by ,)', required=True)
 call_func_parser.add_argument('--value', type=float, help="The value(CPC) of the transaction", default=0, required=False)
+call_func_parser.add_argument('--endpoint', type=str, help='RPC endpoint of your node', required=False, default="https://civilian.cpchain.io")
+call_func_parser.add_argument('--chainID', type=int, help="ChainID of the chain, mainnet: 337(Default), testnet: 41", default=337)
 call_func_parser.set_defaults(func=call_func)
 
 # version parser
