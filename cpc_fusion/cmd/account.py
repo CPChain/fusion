@@ -33,7 +33,7 @@ def create(output_dir, password):
     if not os.path.isdir(output_dir):
         raise Exception('output_dir is not a directory')
     file_name = os.path.join(output_dir, f'{account.address}.json')
-    with open(file_name, 'w') as f:
+    with open(file_name, 'w', encoding='UTF-8') as f:
         json.dump(keystore, f)
     pair_output('Your keystore is stored in', file_name)
 

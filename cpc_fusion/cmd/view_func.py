@@ -10,7 +10,7 @@ log = logging.getLogger()
 def _get_instance(cf, args, has_address=True):
     """ Get instance
     """
-    with open(args.abi, 'r') as fr:
+    with open(args.abi, 'r', encoding='UTF-8') as fr:
         contract_data = json.load(fr)
     if not has_address:
         contract = cf.cpc.contract(
@@ -24,7 +24,7 @@ def view_funcs(args):
     """
     调用不需要发交易的 view 方法
     """
-    with open(args.abi, 'r') as fr:
+    with open(args.abi, 'r', encoding='UTF-8') as fr:
         contract_data = json.load(fr)
     abi = contract_data['abi']
 
@@ -41,7 +41,7 @@ def view_funcs(args):
         log.error(f"Can't find this configuration: {name}")
         return
     constant = constants[0]
-    if len(value.split(',')) != len(constant['inputs']):
+    if value and len(value.split(',')) != len(constant['inputs']):
         log.error(f'Your input {len(value.split(","))} parameters, not equal to {len(constant["inputs"])}')
         return
     inputs = []
@@ -60,7 +60,7 @@ def builder_view_func_parser(subparsers):
     view_funcs_parser.add_argument('--address', type=str, help='Address of this contract', required=True)
     view_funcs_parser.add_argument('--abi', type=str, help='Path of the ABI file', required=True)
     view_funcs_parser.add_argument('--function', type=str, help='Function name of the parameter', required=True)
-    view_funcs_parser.add_argument('--parameters', type=str, help='Value of the parameter(split by ,)', required=True)
+    view_funcs_parser.add_argument('--parameters', type=str, help='Value of the parameter(split by ,)', required=False)
     view_funcs_parser.add_argument('--value', type=float, help="The value(CPC) of the transaction", default=0, required=False)
     view_funcs_parser.add_argument('--endpoint', type=str, help='RPC endpoint of your node', required=False, default="https://civilian.cpchain.io")
     view_funcs_parser.add_argument('--chainID', type=int, help="ChainID of the chain, mainnet: 337(Default), testnet: 41", default=337)
