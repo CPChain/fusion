@@ -83,12 +83,7 @@ def deploy(args):
         addr = cf.toChecksumAddress(ks['address'])
     gas_price = cf.cpc.gasPrice
     nonce = cf.cpc.getTransactionCount(addr)
-    try:
-        estimated_gas = contract.constructor().estimateGas()
-    except Exception as e:
-        log.error('Failed to estimate gas: %s', e)
-        log.warning('Set gas to 10,000,000')
-        estimated_gas = 10000000
+    estimated_gas = contract.constructor().estimateGas()
     tx = contract.constructor().buildTransaction({
         'gasPrice': gas_price,
         "nonce": nonce,
